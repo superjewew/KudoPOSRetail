@@ -12,7 +12,7 @@ import wangpos.sdk4.libbasebinder.Core;
 
 public class Wangpos {
 
-    public static Wangpos sInstance;
+    private static Wangpos sInstance;
     private Context mContext;
     private Core mBaseCore;
     private BankCard mBankCard;
@@ -53,5 +53,9 @@ public class Wangpos {
 
     private void setupBankCard(Context context) {
         mBankCard = new BankCard(context);
+    }
+
+    public BankCard getBankCard() {
+        return mBankCard;
     }
 }
