@@ -1,4 +1,4 @@
-package com.bountyhunter.kudo.kudoposretail.Event;
+package com.bountyhunter.kudo.kudoposretail.event;
 
 /**
  * Created by norman on 11/17/17.

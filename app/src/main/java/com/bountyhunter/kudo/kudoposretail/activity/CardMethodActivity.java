@@ -1,10 +1,10 @@
-package com.bountyhunter.kudo.kudoposretail.Activity;
+package com.bountyhunter.kudo.kudoposretail.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.bountyhunter.kudo.kudoposretail.Event.CardPaymentSuccessEvent;
-import com.bountyhunter.kudo.kudoposretail.PaymentMethod.CardPaymentMethod;
+import com.bountyhunter.kudo.kudoposretail.event.CardPaymentSuccessEvent;
+import com.bountyhunter.kudo.kudoposretail.paymentmethod.CardPaymentMethod;
 import com.bountyhunter.kudo.kudoposretail.R;
 import com.bountyhunter.kudo.kudoposretail.Wangpos;
 

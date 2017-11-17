@@ -1,4 +1,4 @@
-package com.bountyhunter.kudo.kudoposretail.PaymentMethod;
+package com.bountyhunter.kudo.kudoposretail.paymentmethod;
 
 /**
  * Created by norman on 11/17/17.

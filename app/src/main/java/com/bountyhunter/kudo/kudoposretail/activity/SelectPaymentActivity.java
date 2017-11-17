@@ -1,6 +1,5 @@
-package com.bountyhunter.kudo.kudoposretail.Activity;
+package com.bountyhunter.kudo.kudoposretail.activity;
 
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,7 +40,8 @@ public class SelectPaymentActivity extends AppCompatActivity {
 
     @Click(R.id.cash_button)
     public void goToCashPayment() {
-
+        CardMethodActivity_.IntentBuilder_ builder = CardMethodActivity_.intent(this);
+        builder.start();
     }
 
     @Override

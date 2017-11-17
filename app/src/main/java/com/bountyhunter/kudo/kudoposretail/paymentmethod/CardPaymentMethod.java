@@ -1,9 +1,9 @@
-package com.bountyhunter.kudo.kudoposretail.PaymentMethod;
+package com.bountyhunter.kudo.kudoposretail.paymentmethod;
 
 import android.os.RemoteException;
 import android.util.Log;
 
-import com.bountyhunter.kudo.kudoposretail.Event.CardPaymentSuccessEvent;
+import com.bountyhunter.kudo.kudoposretail.event.CardPaymentSuccessEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
