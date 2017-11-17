@@ -1,8 +1,11 @@
-package com.bountyhunter.kudo.kudoposretail;
+package com.bountyhunter.kudo.kudoposretail.Activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.bountyhunter.kudo.kudoposretail.R;
+import com.bountyhunter.kudo.kudoposretail.SelectPaymentActivity_;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;

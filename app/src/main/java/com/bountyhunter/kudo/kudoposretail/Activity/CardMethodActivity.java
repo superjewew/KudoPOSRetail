@@ -1,7 +1,11 @@
-package com.bountyhunter.kudo.kudoposretail;
+package com.bountyhunter.kudo.kudoposretail.Activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+import com.bountyhunter.kudo.kudoposretail.PaymentMethod.CardPaymentMethod;
+import com.bountyhunter.kudo.kudoposretail.R;
+import com.bountyhunter.kudo.kudoposretail.Wangpos;
 
 import org.androidannotations.annotations.EActivity;
 

@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.bountyhunter.kudo.kudoposretail.CardMethodActivity">
+    tools:context="com.bountyhunter.kudo.kudoposretail.Activity.CardMethodActivity">
 
 </android.support.constraint.ConstraintLayout>
