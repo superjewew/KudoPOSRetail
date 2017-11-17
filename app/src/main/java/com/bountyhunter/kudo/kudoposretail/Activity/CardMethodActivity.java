@@ -3,11 +3,15 @@ package com.bountyhunter.kudo.kudoposretail.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.bountyhunter.kudo.kudoposretail.Event.CardPaymentSuccessEvent;
 import com.bountyhunter.kudo.kudoposretail.PaymentMethod.CardPaymentMethod;
 import com.bountyhunter.kudo.kudoposretail.R;
 import com.bountyhunter.kudo.kudoposretail.Wangpos;
 
 import org.androidannotations.annotations.EActivity;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 @EActivity(R.layout.activity_card_method)
 public class CardMethodActivity extends AppCompatActivity {
@@ -22,5 +26,23 @@ public class CardMethodActivity extends AppCompatActivity {
         mWangpos = Wangpos.getInstance(this);
 
         mMethod = new CardPaymentMethod(mWangpos.getBankCard());
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onCardPaymentSuccessEvent(CardPaymentSuccessEvent event) {
+
     }
 }
