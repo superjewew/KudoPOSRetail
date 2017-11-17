@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.SelectPaymentActivity_" />
-        <activity android:name=".activity.CardMethodActivity_"/>
+        <activity android:name=".activity.CardMethodActivity_" />
+        <activity android:name=".activity.EwalletMethodActivity"></activity>
     </application>
 
 </manifest>
