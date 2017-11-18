@@ -21,12 +21,12 @@ public class MposPrinter {
     private Printer mPrinter;
     private System mSystem;
     private Context mContext;
-    private List<String> mStringsToBePrinted;
+    private List<ReceiptString> mStringsToBePrinted;
     private boolean mLoop = false;
     private boolean mThreadRunning = false;
     private boolean mDoneInit = false;
 
-    public MposPrinter(Context context, List<String> stringsToBePrinted) {
+    public MposPrinter(Context context, List<ReceiptString> stringsToBePrinted) {
         mContext = context;
         mStringsToBePrinted = stringsToBePrinted;
     }
@@ -45,6 +45,11 @@ public class MposPrinter {
         if(mDoneInit && !mThreadRunning) {
             new PrintThread().start();
         }
+    }
+
+    private int printString(ReceiptString toBePrinted) {
+        return printString(toBePrinted.getContent(), toBePrinted.getFontSize(),
+                toBePrinted.getAlignment(), toBePrinted.isBold(), toBePrinted.isItalic());
     }
 
     private int printString(String toBePrinted) {
@@ -113,7 +118,7 @@ public class MposPrinter {
                 }
                 Log.v("zhangning", "print data init " + result);
                 try {
-                    for(String toBePrinted : mStringsToBePrinted) {
+                    for(ReceiptString toBePrinted : mStringsToBePrinted) {
                         result = printString(toBePrinted);
                     }
                     if (mPrinter.printPaper(100) != 0) {
