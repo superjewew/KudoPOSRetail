@@ -30,7 +30,8 @@ public class SelectPaymentActivity extends AppCompatActivity {
 
     @Click(R.id.e_wallet_button)
     public void goToEWalletPayment() {
-
+        EwalletMethodActivity_.IntentBuilder_ builder = EwalletMethodActivity_.intent(this);
+        builder.start();
     }
 
     @Click(R.id.card_button)
