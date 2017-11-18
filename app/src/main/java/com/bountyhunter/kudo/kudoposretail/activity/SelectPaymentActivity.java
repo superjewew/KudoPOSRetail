@@ -5,7 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.bountyhunter.kudo.kudoposretail.MposPrinter;
 import com.bountyhunter.kudo.kudoposretail.R;
+import com.bountyhunter.kudo.kudoposretail.Receipt;
 
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
@@ -13,11 +15,14 @@ import org.androidannotations.annotations.EActivity;
 @EActivity(R.layout.activity_select_payment)
 public class SelectPaymentActivity extends AppCompatActivity {
 
+    MposPrinter printer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setupHomeButton();
+        setupPrinter();
     }
 
     private void setupHomeButton() {
@@ -28,6 +33,10 @@ public class SelectPaymentActivity extends AppCompatActivity {
         }
     }
 
+    private void setupPrinter() {
+        printer = MposPrinter.getInstance(this, new Receipt(123456, 2));
+    }
+
     @Click(R.id.e_wallet_button)
     public void goToEWalletPayment() {
 
@@ -35,13 +44,13 @@ public class SelectPaymentActivity extends AppCompatActivity {
 
     @Click(R.id.card_button)
     public void goToCardPayment() {
-
+        CardMethodActivity_.IntentBuilder_ builder = CardMethodActivity_.intent(this);
+        builder.start();
     }
 
     @Click(R.id.cash_button)
     public void goToCashPayment() {
-        CardMethodActivity_.IntentBuilder_ builder = CardMethodActivity_.intent(this);
-        builder.start();
+        printer.print();
     }
 
     @Override
