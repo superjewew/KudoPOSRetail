@@ -1,4 +1,4 @@
-package com.bountyhunter.kudo.kudoposretail;
+package com.bountyhunter.kudo.kudoposretail.Activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
