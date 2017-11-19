@@ -14,9 +14,17 @@ class LoginResponse(
         val message: String
 )
 class ProductResponse(
-        val id: Long,
-        val name: String,
-        val description: String,
-        val price: Double,
-        val stock: Int
+        val code: Int,
+        val message: DataResponse)
+
+class DataResponse(
+    val data: List<ProductCatalog>
 )
+class ProductCatalog(
+        val id: Long = 0,
+        val name: String = "No Name",
+        val description: String = "Desciprtion",
+        val price: Double = 0.0,
+        val stock: Int = 0,
+        val image: String = "No Image") {
+}

@@ -3,6 +3,7 @@ package com.bountyhunter.kudo.kudoposretail.Activity
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.TargetApi
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -14,16 +15,18 @@ import com.bountyhunter.kudo.kudoposretail.rxjava.LoginManager
 import kotlinx.android.synthetic.main.activity_login.*
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
+import rx.subscriptions.CompositeSubscription
 
 /**
  * A login screen that offers login via email/password.
  */
-class LoginActivity : AppCompatActivity(){
+class LoginActivity : AppCompatActivity() {
 
     private val loginManager by lazy {
         LoginManager()
     }
 
+    private val compositeSubscription = CompositeSubscription()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +35,16 @@ class LoginActivity : AppCompatActivity(){
         email_sign_in_button.setOnClickListener { attemptLogin() }
     }
 
+    override fun onPause() {
+        super.onPause()
+        if (compositeSubscription.hasSubscriptions()) {
+            compositeSubscription.clear()
+        }
+
+    }
+    override fun onStop() {
+        super.onStop()
+    }
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -83,22 +96,24 @@ class LoginActivity : AppCompatActivity(){
         val disposable = loginManager.login(emailStr, passwordStr)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        {
-                            data -> showToast(data.message)
+                .subscribe({
 
-                        },
-                        {
-                            error -> showToast("GAGAL")
-                        },
-                        {}
-                )
+                }, {
 
+                }, {
+                    showToast("Welcome")
+                    goToCatalog()
+                })
+        compositeSubscription.add(disposable)
     }
 
     private fun showToast(text: String) {
-        Toast.makeText(this, text, Toast.LENGTH_LONG).show()
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+    }
 
+    fun goToCatalog() {
+        val intent = CatalogActivity.newIntent(this)
+        startActivity(intent)
     }
 
     private fun isEmailValid(email: String): Boolean {
@@ -148,6 +163,4 @@ class LoginActivity : AppCompatActivity(){
             login_form.visibility = if (show) View.GONE else View.VISIBLE
         }
     }
-
-
 }

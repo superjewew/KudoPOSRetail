@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="118dp"
+                android:layout_height="118dp"
+                android:id="@+id/product_image_iv"/>
+
+            <TextView
+                android:layout_below="@id/product_image_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lines="2"
+                tools:text="Wipol perversih"
+                android:id="@+id/product_name_tv"/>
+
+            <TextView
+                android:layout_below="@id/product_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Rp.3.333.200"
+                android:typeface="normal"
+                android:id="@+id/product_price_tv"/>
+            
+            <TextView
+                android:layout_below="@id/product_price_tv"
+                android:id="@+id/prouct_commission_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Komisi Rp.4.000"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+</RelativeLayout>
+
