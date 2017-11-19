@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar
 import android.view.MenuItem
 import com.bountyhunter.kudo.kudoposretail.R
 import com.bountyhunter.kudo.kudoposretail.api.ProductCatalog
+import com.bountyhunter.kudo.kudoposretail.util.NumberUtils
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_cart.*
 
@@ -24,8 +25,10 @@ class CartActivity : AppCompatActivity() {
         val productName = intent.getStringExtra(INTENT_PRODUCT_NAME)
         val productImage = intent.getStringExtra(INTENT_PRODUCT_IMAGE)
         //val productDescription = intent.getStringExtra(INTENT_PRODUCT_COMMISSION)
-        val productCommission = intent.getDoubleExtra(INTENT_PRODUCT_COMMISSION,0.0)
-        val productPrice = intent.getDoubleExtra(INTENT_PRODUCT_PRICE, 0.0)
+        val commission = intent.getDoubleExtra(INTENT_PRODUCT_COMMISSION,0.0)
+        val price = intent.getDoubleExtra(INTENT_PRODUCT_PRICE,0.0)
+        val productCommission = "Komisi @ ${NumberUtils.formatPrice(commission)}"
+        val productPrice = NumberUtils.formatPrice(price)
 
         item_cart_tv_item_name.text = productName
         Picasso.with(this)
@@ -35,7 +38,7 @@ class CartActivity : AppCompatActivity() {
         item_cart_tv_commission_details.text  = productCommission.toString()
 
         shopping_cart_btn_checkout.setOnClickListener {
-
+            goToCheckout()
         }
 
     }
@@ -71,6 +74,7 @@ class CartActivity : AppCompatActivity() {
             intent.putExtra(INTENT_PRODUCT_NAME, productCatalog.name)
             intent.putExtra(INTENT_PRODUCT_DESCRIPTION, productCatalog.description)
             intent.putExtra(INTENT_PRODUCT_COMMISSION, productCatalog.commission)
+            intent.putExtra(INTENT_PRODUCT_PRICE, productCatalog.price)
             return intent
         }
     }
