@@ -1,9 +1,8 @@
-package com.bountyhunter.kudo.kudoposretail.Activity
+package com.bountyhunter.kudo.kudoposretail.activity
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.TargetApi
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

@@ -13,11 +13,11 @@
         android:supportsRtl="true">
         <activity
             android:theme="@style/AppTheme.NoActionBar"
-            android:name=".Activity.LoginActivity"
+            android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login">
 
         </activity>
-        <activity android:name=".Activity.CatalogActivity"
+        <activity android:name=".activity.CatalogActivity"
             android:theme="@style/AppTheme"
             android:label="Products Catalog">
             <intent-filter>
