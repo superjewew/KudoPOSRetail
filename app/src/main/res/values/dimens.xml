@@ -3,4 +3,305 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- Text size -->
+    <dimen name="text_size_icon_badge">8sp</dimen>
+    <dimen name="text_size_very_extra_small">10sp</dimen>
+    <dimen name="text_size_extra_small">12sp</dimen>
+    <dimen name="text_size_small_14">14sp</dimen>
+    <dimen name="text_size_small">15sp</dimen>
+    <dimen name="text_size_medium_16">16sp</dimen>
+    <dimen name="text_size_medium">18sp</dimen>
+    <dimen name="text_size_medium_large">20sp</dimen>
+    <dimen name="text_size_large">30sp</dimen>
+
+    <!-- Widget default -->
+    <dimen name="btn_corner_radius">4dp</dimen>
+    <dimen name="grid_item_height">169dp</dimen>
+    <dimen name="tab_height">48dp</dimen>
+
+    <!-- Shopping cart -->
+    <dimen name="item_cart_tv_price_max_width">120dp</dimen>
+    <dimen name="item_cart_padding">16dp</dimen>
+    <dimen name="item_cart_iv_image_width">88dp</dimen>
+    <dimen name="item_cart_tv_quantity_width">16dp</dimen>
+
+    <!-- Online Grid Item & Filter -->
+    <dimen name="dialog_height_category_picker">400dp</dimen>
+
+    <!-- Product Detail -->
+    <dimen name="product_detail_tab_height">52dp</dimen>
+    <dimen name="product_detail_tab_padding">48dp</dimen>
+    <dimen name="product_detail_image_height">384dp</dimen>
+    <dimen name="product_detail_max_product_info_height">128dp</dimen>
+
+    <!-- main menu -->
+    <dimen name="shop_grid_spacing">4dp</dimen>
+    <dimen name="shop_grid_outer_padding">6dp</dimen>
+    <dimen name="item_grid_horizontal_spacing">4dp</dimen>
+    <dimen name="hot_items_pager_height">120dp</dimen>
+    <dimen name="hot_items_left_padding">8dp</dimen>
+    <dimen name="hot_items_height_add_value">32dp</dimen>
+    <dimen name="tab_title_text_size">12sp</dimen>
+    <dimen name="selected_tab_title_text_size">14sp</dimen>
+
+    <!-- promo -->
+    <dimen name="promo_header_height">300dp</dimen>
+    <dimen name="promo_header_shadow_height">150dp</dimen>
+
+    <!-- Spinner -->
+    <dimen name="spinner_padding_bg_bottom">-3dp</dimen>
+
+    <!-- Padding -->
+    <dimen name="main_padding_extra_tiny">1dp</dimen>
+    <dimen name="main_padding_tiny">2dp</dimen>
+    <dimen name="main_padding_extra_very_small">4dp</dimen>
+    <dimen name="main_padding_medium_very_small_5">5dp</dimen>
+    <dimen name="main_padding_medium_very_small">6dp</dimen>
+    <dimen name="main_padding_very_small">8dp</dimen>
+    <dimen name="main_padding_medium_small">10dp</dimen>
+    <dimen name="main_padding_small_11">11dp</dimen>
+    <dimen name="main_padding_small_12">12dp</dimen>
+    <dimen name="main_padding_small_13">13dp</dimen>
+    <dimen name="main_padding_small_14">14dp</dimen>
+    <dimen name="main_padding_small">16dp</dimen>
+    <dimen name="main_padding_medium_20">20dp</dimen>
+    <dimen name="main_padding_medium">24dp</dimen>
+    <dimen name="main_padding_medium_26">26dp</dimen>
+    <dimen name="main_padding_large_30">30dp</dimen>
+    <dimen name="main_padding_large">32dp</dimen>
+    <dimen name="main_padding_large_33">33dp</dimen>
+    <dimen name="main_padding_large_34">34dp</dimen>
+    <dimen name="main_padding_large_36">36dp</dimen>
+    <dimen name="main_padding_large_38">38dp</dimen>
+    <dimen name="main_padding_large_40">40dp</dimen>
+    <dimen name="main_padding_large_48">48dp</dimen>
+    <dimen name="main_padding_large_52">52dp</dimen>
+    <dimen name="main_padding_large_54">54dp</dimen>
+    <dimen name="main_padding_large_56">56dp</dimen>
+    <dimen name="main_padding_very_large">64dp</dimen>
+    <dimen name="main_padding_large_72">72dp</dimen>
+    <dimen name="main_padding_medium_very_large">96dp</dimen>
+    <dimen name="main_padding_extra_very_large">128dp</dimen>
+
+    <!-- Generic Margin -->
+    <dimen name="generic_button_small_height">32dp</dimen>
+    <dimen name="generic_button_height">48dp</dimen>
+    <dimen name="avatar_image_height">40dp</dimen>
+    <dimen name="avatar_image_height_new">32dp</dimen>
+    <dimen name="avatar_image_height_fl">56dp</dimen>
+
+    <!-- Text size Pulsa and Utility-->
+    <dimen name="text_size_pulsa_utility_title">28sp</dimen>
+    <dimen name="text_size_pulsa_utility_desc">15sp</dimen>
+    <dimen name="text_size_pulsa_utility_detail">12sp</dimen>
+    <dimen name="transfer_tutorial_separator_margin">16dp</dimen>
+    <dimen name="bpjs_spinner_height">32dp</dimen>
+
+    <!--Utility-->
+    <dimen name="utility_amount_btn_height">48dp</dimen>
+    <dimen name="utility_amount_btn_width">120dp</dimen>
+    <dimen name="btn_grey_bordered_corner_radius">2dp</dimen>
+    <dimen name="btn_grey_bordered_height">36dp</dimen>
+    <dimen name="utility_amount_bottom_layout_height">52dp</dimen>
+
+    <!--Customer Account-->
+    <dimen name="item_missing_order_iv_image_width">64dp</dimen>
+
+    <!--kudo tutorial-->
+    <dimen name="pager_height">350dp</dimen>
+    <dimen name="circle_page_indicator_height">30dp</dimen>
+    <dimen name="button_height">60dp</dimen>
+    <dimen name="button_width_medium">160dp</dimen>
+    <dimen name="button_width">200dp</dimen>
+    <dimen name="image_height">200dp</dimen>
+    <dimen name="image_width">200dp</dimen>
+    <dimen name="tab_shadow_height">4dp</dimen>
+    <dimen name="shadow_height__very_small">1dp</dimen>
+    <dimen name="shadow_height_small">2dp</dimen>
+    <dimen name="shadow_height_medium">4dp</dimen>
+
+    <dimen name="grab_top_status_detail">30dp</dimen>
+    <dimen name="grab_bottom_status_detail">52dp</dimen>
+    <dimen name="grab_circle_size">24dp</dimen>
+    <dimen name="grab_card_heigh_size">56dp</dimen>
+    <dimen name="grab_item_min_heigh">176dp</dimen>
+    <dimen name="grab_otp_input_heigth">96dp</dimen>
+
+    <!--NewsFeed-->
+    <dimen name="image_size_vendor_newsfeed">15dp</dimen>
+    <dimen name="image_size_small">44dp</dimen>
+    <dimen name="image_size_medium">66dp</dimen>
+
+    <!--favorite item-->
+    <dimen name="favorite_item_tv_price_max_width">88dp</dimen>
+    <dimen name="favorite_item_padding">8dp</dimen>
+    <dimen name="favorite_item_iv_width">88dp</dimen>
+    <dimen name="favorite_item_btn_action_height">40dp</dimen>
+    <dimen name="favorite_item_discount_height">43dp</dimen>
+    <dimen name="favorite_item_discount_width">30dp</dimen>
+    <dimen name="favorite_icon_fix_height">48dp</dimen>
+    <dimen name="favorite_icon_fix_width">56dp</dimen>
+    <dimen name="favorite_item_vertical_padding">4dp</dimen>
+    <dimen name="item_cart_vertical_padding">4dp</dimen>
+
+    <dimen name="display_mode_setting_height">46dp</dimen>
+    <dimen name="dialog_message_image_height">150dp</dimen>
+    <dimen name="dialog_message_password_padding_right">56dp</dimen>
+
+    <!--Flight-->
+    <dimen name="box_height_flight_menu">40dp</dimen>
+    <dimen name="image_height_flight_icon">45dp</dimen>
+    <dimen name="image_height_flight_schedule">60dp</dimen>
+    <dimen name="image_height_flight_schedule_2">56dp</dimen>
+    <dimen name="image_height_flight_filter">20dp</dimen>
+    <dimen name="progress_width_flight">4dp</dimen>
+    <dimen name="date_title_schedule_flight">40dp</dimen>
+    <dimen name="text_size_middle_flight">16sp</dimen>
+    <dimen name="text_size_standard_flight">14sp</dimen>
+    <dimen name="text_size_code_airport_flight">32sp</dimen>
+    <dimen name="text_size_date_number_flight">36sp</dimen>
+    <dimen name="text_size_date_name_flight">12sp</dimen>
+    <dimen name="text_size_spinner_flight">24sp</dimen>
+    <dimen name="text_size_date_title_confirm_ticket">16sp</dimen>
+    <dimen name="spinner_width_identity_passenger">65dp</dimen>
+    <dimen name="circle_width_flight">10dp</dimen>
+    <dimen name="text_size_date_over_day">8sp</dimen>
+    <dimen name="image_height_flight_confirmation">62dp</dimen>
+    <dimen name="search_padding_airport_flight">40dp</dimen>
+    <dimen name="item_desc_height_bottom">16dp</dimen>
+    <dimen name="minimum_width_item_detail_route">100dp</dimen>
+    <dimen name="arrival_time_min_width">80dp</dimen>
+    <dimen name="departure_time_min_width">76dp</dimen>
+    <dimen name="search_flight_progress_width">90dp</dimen>
+    <dimen name="search_flight_icon_error_width">96dp</dimen>
+    <dimen name="change_date_item_height">60dp</dimen>
+    <dimen name="flight_filter_height">48dp</dimen>
+    <dimen name="flight_schedule_icon_size">18dp</dimen>
+    <dimen name="flight_bag_size_text_size">8sp</dimen>
+
+    <!-- Ticket -->
+    <dimen name="radio_btn_size">20dp</dimen>
+    <dimen name="radio_btn_size_small">15dp</dimen>
+
+    <!-- Train -->
+    <dimen name="spinner_height_train">45dp</dimen>
+    <dimen name="box_height_train_selector">115dp</dimen>
+    <dimen name="btn_width_material">100dp</dimen>
+    <dimen name="btn_height_material">50dp</dimen>
+    <dimen name="schedule_height">40dp</dimen>
+
+    <dimen name="spinner_card_elevation">2dp</dimen>
+    <dimen name="manual_transfer_et_height">46dp</dimen>
+    <dimen name="continue_button_height">48dp</dimen>
+
+    <dimen name="live_chat_time_width">45dp</dimen>
+    <dimen name="live_chat_border_padding_width">37dp</dimen>
+    <dimen name="filename_min_height">48dp</dimen>
+    <dimen name="image_button_min_size">48dp</dimen>
+    <dimen name="input_layout_left_margin">12dp</dimen>
+    <dimen name="spinner_left_margin">12dp</dimen>
+    <dimen name="tab_layout_height">56dp</dimen>
+    <dimen name="stepper_btn_size">36dp</dimen>
+    <dimen name="stepper_btn_padding">6dp</dimen>
+
+    <dimen name="tutorial_page_padding">16dp</dimen>
+
+    <!--transaction-->
+    <dimen name="transaction_img_width">88dp</dimen>
+    <dimen name="detail_transaction_img_width">64dp</dimen>
+    <dimen name="detail_transaction_btn_height">48dp</dimen>
+
+    <!--Tiered Registration-->
+    <dimen name="agent_badge_icon">8dp</dimen>
+    <dimen name="facebook_text_size">12sp</dimen>
+    <dimen name="til_icon_size_22">22dp</dimen>
+    <dimen name="til_icon_size">24dp</dimen>
+    <dimen name="til_icon_size_26">26dp</dimen>
+    <dimen name="til_icon_size_32">32dp</dimen>
+    <dimen name="tiered_button_size">36dp</dimen>
+    <dimen name="login_choose_facebook_title">145dp</dimen>
+    <dimen name="login_til_heigh_size">96dp</dimen>
+    <dimen name="reg_form_et_heigh">80dp</dimen>
+    <dimen name="otp_header_heigh">80dp</dimen>
+    <dimen name="otp_header_heigh_84">84dp</dimen>
+    <dimen name="otp_header_heigh_92">92dp</dimen>
+    <dimen name="otp_next_button">52dp</dimen>
+    <dimen name="profile_notification_heigh">105dp</dimen>
+    <dimen name="profile_notification_button_width">136dp</dimen>
+    <dimen name="profile_notification_info">16dp</dimen>
+    <dimen name="account_header_heigh">150dp</dimen>
+    <dimen name="facebook_button_width">138dp</dimen>
+    <dimen name="verification_item_heigh">52dp</dimen>
+    <dimen name="verification_status_item_heigh">72dp</dimen>
+    <dimen name="verification_til_heigh">90dp</dimen>
+    <dimen name="verification_til_image_heigh">250dp</dimen>
+    <dimen name="verification_header_rl_heigh">280dp</dimen>
+    <dimen name="verification_header_image_heigh">96dp</dimen>
+    <dimen name="verification_title_heigh">52dp</dimen>
+    <dimen name="spinner_width">88dp</dimen>
+    <dimen name="spinner_heigh">52dp</dimen>
+    <dimen name="button_take_picture_margin">-50dp</dimen>
+    <dimen name="icon_profile_setting">35dp</dimen>
+    <dimen name="icon_facebook_padding">45dp</dimen>
+    <dimen name="connect_facebook_heigh">36dp</dimen>
+    <dimen name="mini_map">56dp</dimen>
+
+    <!--QR Code-->
+    <dimen name="qrcode_margin">32dp</dimen>
+    <dimen name="qrcode_margin_small">16dp</dimen>
+    <dimen name="qrcode_margin_medium">36dp</dimen>
+    <dimen name="qrcode_margin_large">72dp</dimen>
+    <dimen name="qrcode_progressbar">55dp</dimen>
+    <dimen name="qrcode_progressbar_large">75dp</dimen>
+    <dimen name="qrcode_button">120dp</dimen>
+    <dimen name="qrcode_image">250dp</dimen>
+    <dimen name="schedule_detail_plane_icon_width">24dp</dimen>
+    <dimen name="schedule_detail_line_height">52dp</dimen>
+    <dimen name="flight_detail_clock_icon_width">32dp</dimen>
+    <dimen name="main_padding_extra_very_small_3dp">3dp</dimen>
+    <dimen name="main_padding_extra_very_small_2dp">2dp</dimen>
+    <dimen name="flight_search_iv_side_size">24dp</dimen>
+    <dimen name="flight_index_swap_btn_left_padding">20dp</dimen>
+    <dimen name="flight_index_right_space">68dp</dimen>
+    <dimen name="stepper_text_min_height">36dp</dimen>
+    <dimen name="stepper_text_min_width">24dp</dimen>
+    <dimen name="item_schedule_flight_card_padding_workaround">-4dp</dimen>
+
+    <!--sharing-->
+    <dimen name="kudo_sharing_dialog_width">280dp</dimen>
+
+    <!--balancetopup-->
+    <dimen name="groupbank_margin_unselected">21dp</dimen>
+    <dimen name="groupbank_margin_selected">10dp</dimen>
+    <dimen name="bank_image_width">63dp</dimen>
+
+    <!--loan-->
+    <dimen name="fif_image_width">72dp</dimen>
+    <dimen name="fif_image_step_list_width">36dp</dimen>
+
+    <!--location-->
+    <dimen name="width_marker">250dp</dimen>
+    <dimen name="padding_marker">124dp</dimen>
+
+    <!--finance-->
+    <dimen name="medium_elevation">4dp</dimen>
+    <dimen name="medium_radius">4dp</dimen>
+    <dimen name="form_section_height">52dp</dimen>
+    <dimen name="icon_size">24dp</dimen>
+    <dimen name="menu_icon_size">30dp</dimen>
+    <dimen name="menu_label_width">80dp</dimen>
+    <dimen name="menu_item_width">80dp</dimen>
+    <dimen name="menu_item_height">84dp</dimen>
+
+    <!-- wallet -->
+    <dimen name="wallet_icon_size">48dp</dimen>
+    <dimen name="rounded_button_height">22dp</dimen>
+    <dimen name="linear_progress_bar_height">16dp</dimen>
+
+    <dimen name="category_item_size">40dp</dimen>
+
+    <!--shopping cart-->
+    <dimen name="empty_shopping_cart_height">120dp</dimen>
+    <dimen name="empty_shopping_cart_width">120dp</dimen>
 </resources>

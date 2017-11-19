@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 class RestAPI {
 
-    private val hackaidoApi : HackaidoApi
+    val hackaidoApi: HackaidoApi
 
     init {
         val retrofit = Retrofit.Builder()
@@ -19,8 +19,20 @@ class RestAPI {
         hackaidoApi = retrofit.create(HackaidoApi::class.java)
     }
 
+    fun getInstance(): HackaidoApi {
+        if (hackaidoApi != null) {
+            return hackaidoApi
+        } else {
+            val retrofit = Retrofit.Builder()
+                    .baseUrl("http://private-9d06dc-hackaido1.apiary-mock.com")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+            return retrofit.create(HackaidoApi::class.java)
+        }
+    }
+
     fun login(email: String, password: String): Call<LoginResponse> {
-        var loginRequest = LoginRequest(email,password)
+        var loginRequest = LoginRequest(email, password)
         return hackaidoApi.login(loginRequest)
     }
 

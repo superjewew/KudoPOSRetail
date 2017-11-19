@@ -18,7 +18,7 @@ class ProductCatalogViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
                 .load(myProductCatalog.image)
                 .into(itemView.product_image_iv)
         itemView.product_price_tv.text = NumberUtils.formatPrice(myProductCatalog.price)
-        itemView.prouct_commission_tv.text = NumberUtils.formatPrice(myProductCatalog.price)
+        itemView.prouct_commission_tv.text = "Komisi  ${NumberUtils.formatPrice(myProductCatalog.commission)}"
         itemView.setOnClickListener {
             listener(myProductCatalog)
         }

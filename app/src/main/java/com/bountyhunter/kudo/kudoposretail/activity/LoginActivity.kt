@@ -41,10 +41,6 @@ class LoginActivity : AppCompatActivity() {
         }
 
     }
-    override fun onStop() {
-        super.onStop()
-    }
-
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
@@ -113,6 +109,7 @@ class LoginActivity : AppCompatActivity() {
     fun goToCatalog() {
         val intent = CatalogActivity.newIntent(this)
         startActivity(intent)
+        finish()
     }
 
     private fun isEmailValid(email: String): Boolean {
