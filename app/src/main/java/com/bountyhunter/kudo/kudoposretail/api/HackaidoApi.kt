@@ -14,6 +14,9 @@ interface HackaidoApi {
     fun login(@Body loginRequest: LoginRequest)
             : Call<LoginResponse>
 
+    @POST("/doVoid")
+    fun void(@Body voidRequest: VoidRequest) : Call<VoidResponse>
+
     @GET("/products")
     fun products() : Call<ProductResponse>
 }

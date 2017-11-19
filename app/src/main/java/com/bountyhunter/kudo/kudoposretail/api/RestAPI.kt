@@ -24,6 +24,11 @@ class RestAPI {
         return hackaidoApi.login(loginRequest)
     }
 
+    fun void(transNo: String, pin : Int): Call<VoidResponse> {
+        var voidRequest = VoidRequest(transNo, pin)
+        return hackaidoApi.void(voidRequest)
+    }
+
     fun getProducts() = hackaidoApi.products()
 }
 

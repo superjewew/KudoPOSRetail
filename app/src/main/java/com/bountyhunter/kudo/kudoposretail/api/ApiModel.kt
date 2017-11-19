@@ -20,3 +20,11 @@ class ProductResponse(
         val price: Double,
         val stock: Int
 )
+class VoidRequest (
+        @SerializedName("trans_no") val transNumber: String,
+        @SerializedName("pin") val pin : Int
+)
+class VoidResponse (
+        val code: Int,
+        val message: String
+)
