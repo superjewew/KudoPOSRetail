@@ -12,7 +12,7 @@ import wangpos.sdk4.libbasebinder.Printer;
  */
 
 public class Receipt {
-    List<ReceiptString> mContents;
+    List<ReceiptString> mContents = new ArrayList<>();
 
     public Receipt(int totalPrice, int method) {
         generateHeader();
@@ -41,7 +41,7 @@ public class Receipt {
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy  HH:mm:ss");
 
-        mContents.add(new ReceiptString(format.format(cal), 24, Printer.Align.LEFT, false, false));
+        mContents.add(new ReceiptString(format.format(cal.getTime()), 24, Printer.Align.LEFT, false, false));
     }
 
     private void generateTotalPrice(int price) {
