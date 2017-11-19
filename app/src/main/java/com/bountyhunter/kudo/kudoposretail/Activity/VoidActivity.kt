@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
+import android.widget.Toast
 import com.bountyhunter.kudo.kudoposretail.R
 import com.bountyhunter.kudo.kudoposretail.rxjava.VoidManager
 import kotlinx.android.synthetic.main.activity_void.*
@@ -42,10 +43,10 @@ class VoidActivity : AppCompatActivity() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {
-//                            data -> showToast(data.message)
+                            data -> showToast(data.message)
                         },
                         {
-//                            error -> showToast("GAGAL")
+                            error -> showToast("Gagal membatalkan transaksi")
                         },
                         {}
                 )
@@ -94,6 +95,10 @@ class VoidActivity : AppCompatActivity() {
         } else {
 //            showProgress(true)
         }
+    }
+
+    private fun showToast(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show()
     }
 
     private fun isTransactionValid(transNo: String): Boolean {
