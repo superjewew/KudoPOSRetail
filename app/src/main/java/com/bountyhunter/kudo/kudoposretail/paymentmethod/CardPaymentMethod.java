@@ -101,7 +101,9 @@ public class CardPaymentMethod implements PaymentMethod {
                 mThread.interrupt();
                 mThread = null;
             }
-            this.mBankCard.breakOffCommand();
+            if(mBankCard != null) {
+                mBankCard.breakOffCommand();
+            }
         } catch (RemoteException e) {
             e.printStackTrace();
         }

@@ -3,4 +3,7 @@
     <string name="e_wallet">E-Wallet</string>
     <string name="debit_credit">Kartu Debit/Kredit</string>
     <string name="cash">Tunai</string>
+    <string name="alert_dialog_ok">Iya</string>
+    <string name="alert_dialog_cancel">Batal</string>
+    <string name="title_choose_another_payment_method">"Apakah Anda ingin memilih metode pembayaran yang lain?"</string>
 </resources>
