@@ -3,6 +3,151 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#0781D0</color>
     <color name="colorAccent">#4caf50</color>
+
+
+    <!-- KUDO KMA -->
+    <color name="white">#ffffff</color>
+    <color name="red_discount">#ED212E</color>
+    <color name="black_overlay_opacity_70">#99000000</color>
+    <color name="black_overlay_opacity_32">#52000000</color>
+    <color name="red_overlay_opacity_70">#80ED212E</color>
+    <color name="black">#000000</color>
+    <color name="transparent_white">#00FFFFFF</color>
+    <color name="dark_grey_overlay">#525b5b5b</color>
+    <color name="black_secondary">#89000000</color>
+    <color name="black_opacity_87">#dd000000</color>
+
+    <!-- Primary -->
+    <color name="button_green_code">#4caf50</color>
+    <color name="text_green_code">#179647</color>
+    <color name="primary">#0781d0</color>
+    <color name="primary_dark">#056CAE</color>
+    <color name="primary_notification">#B5D9F1</color>
     <color name="secondary">#01B4EF</color>
+    <color name="positive">#4CAF50</color>
+    <color name="warning">#F6A338</color>
+    <color name="negative">#ED212E</color>
+    <color name="primary_dark_grey">#5b5b5b</color>
     <color name="primary_grey">#919191</color>
+    <color name="primary_light_grey">#dddddd</color>
+    <color name="primary_lighter_grey">#fafafa</color>
+    <color name="primary_text_color">#DE000000</color>
+    <color name="default_background_light">#EEEEEE</color>
+    <color name="default_background_light_transparat">#80EEEEEE</color>
+    <color name="primary_yellow">#BAD532</color>
+    <color name="blue_cerulean">#0781d0</color>
+    <color name="black_opacity_72">#B7000000</color>
+
+    <!-- Buttons -->
+    <color name="btn_positive">@color/positive</color>
+    <color name="btn_positive_pressed">#6EB370</color>
+    <color name="btn_secondary">#01B4EF</color>
+    <color name="btn_secondary_pressed">#39B6DF</color>
+    <color name="btn_negative">@color/negative</color>
+    <color name="btn_negative_pressed">#DE5059</color>
+    <color name="btn_warning">@color/warning</color>
+    <color name="btn_warning_pressed">#E4AA60</color>
+    <color name="btn_grey">#d1d2d4</color>
+    <color name="btn_grey_pressed">@color/primary_dark_grey</color>
+    <color name="btn_switch_inactive">#F1F1F1</color>
+    <color name="btn_switch_track_checked">#804caf50</color>
+    <color name="btn_switch_track_light_checked">#80ffffff</color>
+    <color name="btn_switch_track_unchecked">#61000000</color>
+    <color name="bg_icon_setting">#FF737373</color>
+    <color name="btn_primary">#FF00559e</color>
+    <color name="btn_grey_bordered">#61000000</color>
+    <color name="btn_grey_bordered_disabled">#1F000000</color>
+
+    <!-- TextView -->
+    <color name="tv_body1_disabled">#61000000</color>
+
+    <!-- Transaction status -->
+    <color name="trx_positive">@color/positive</color>
+    <color name="trx_warning">@color/warning</color>
+    <color name="trx_negative">@color/negative</color>
+
+    <!--tutorial-->
+    <color name="circle_page_indicator_page">#33DDDDDD</color>
+    <color name="default_tutorial_bg">@color/primary</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparent_text">@color/white_opacity_54</color>
+    <color name="equity_tutorial_bg_001">#66BB6A</color>
+    <color name="equity_tutorial_bg_003">#0781D0</color>
+
+    <!--Tab Item-->
+    <color name="selected_tab_text_color">#FFFFFF</color>
+    <color name="unselected_tab_text_color">@color/white_opacity_54</color>
+
+    <color name="customer_mode_grey">#FFA6A6A6</color>
+    <color name="snackbar_transparent_bg">#DE323232</color>
+    <color name="background_schedule_train">#C4C4C4</color>
+
+    <!-- Tiered Registration -->
+    <color name="black_opacity_12">#1A000000</color>
+
+    <!-- Flight -->
+    <color name="black_code_airport">#212121</color>
+    <color name="black_title_menu_flight">#4D4D4D</color>
+    <color name="black_description_menu_flight">#757575</color>
+    <color name="gray_hint_empty">#804D4D4D</color>
+    <color name="black_title_passenger">#747474</color>
+    <color name="gray_tab_route">#ECEFF1</color>
+    <color name="blue_tab_route">#01B4Ef</color>
+    <color name="black_opacity_85">#D9000000</color>
+    <color name="black_opacity_50">#80000000</color>
+    <color name="black_opacity_25">#40000000</color>
+    <color name="black_opacity_24">#3d000000</color>
+    <color name="black_bank">#202020</color>
+    <color name="gray_line">#cfcfcf</color>
+    <color name="black_supertext">#050505</color>
+    <color name="gray_background">#e7e7e7</color>
+
+    <!-- Grab -->
+    <color name="grab_list_backround">#F5F5F5</color>
+
+    <!--QR Code-->
+    <color name="qrcode_progressbar">#0A68A8</color>
+
+    <color name="background_disable_bank">#cccccc</color>
+
+    <!--revamp transaction-->
+    <color name="white_opacity_50">#50000000</color>
+    <color name="white_opacity_54">#8AFFFFFF</color>
+    <color name="black_opacity_54">#8A000000</color>
+    <color name="black_opacity_38">#61000000</color>
+    <color name="flight_form_warning">#FFD50000</color>
+
+    <color name="light_grey">#ddd</color>
+    <color name="disable_order_out_of_stock">#F1F1F1</color>
+
+    <!--revamp topup-->
+    <color name="separator_opacity_54">#8Ad7d7d7</color>
+    <color name="selected_topup_background">#ddea99</color>
+    <color name="selected_topup_text">#8a202020</color>
+    <color name="topup_head_bg">#fce2c1</color>
+    <color name="topup_howto_color">#F6BC38</color>
+    <color name="topup_notification_color">#FFB5D9F1</color>
+
+    <!--livechat rating-->
+    <color name="rating_status_color">#42000000</color>
+    <color name="rating_filled_star_color">#F5A623</color>
+    <color name="rating_normal_star_color">#8C8C8C</color>
+
+    <!-- finance -->
+    <color name="separator">#FFDDDDDD</color>
+
+    <!-- cart -->
+    <color name="cart_gray_background">#FFEEEEEE</color>
+
+    <!-- wallet -->
+    <color name="wallet_balance_label_color">#B3FFFFFF</color>
+
+    <!-- wholesale -->
+    <color name="wholesale_green_tag_color">#FF4CAF50</color>
+    <color name="wholesale_black_product_name_color">#DE000000</color>
+    <color name="wholesale_gray_price_title">#8A000000</color>
+
+    <!-- wholesale -->
+    <color name="wholesale_cart_light_blue">#FF0781D0</color>
+
 </resources>

@@ -5,6 +5,8 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.view.MenuItem
+import android.view.Window
 import android.widget.Toast
 import com.bountyhunter.kudo.kudoposretail.R
 import com.bountyhunter.kudo.kudoposretail.api.ProductCatalog
@@ -36,11 +38,12 @@ class CatalogActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_catalog)
 
         rv_products_catalog.layoutManager =
                 GridLayoutManager(this, column)
-        rv_products_catalog.addItemDecoration(GridCatalogDecoration(12))
+        //rv_products_catalog.addItemDecoration(GridCatalogDecoration(12))
 
 //        var alMyProductResponse = ArrayList<ProductCatalog>()
 //
@@ -83,7 +86,13 @@ class CatalogActivity : AppCompatActivity() {
     fun initAdapter(productRespons: List<ProductCatalog>) {
         rv_products_catalog.adapter = ProductCatalogAdapter(ArrayList(productRespons)) { productResponse ->
             Toast.makeText(this, productResponse.name, Toast.LENGTH_SHORT).show()
+            goToCart(productResponse)
         }
+    }
+
+    fun goToCart(product : ProductCatalog) {
+        val intent = CartActivity.newIntent(this,product)
+        startActivity(intent)
     }
 
     companion object {
