@@ -21,7 +21,7 @@ class ProductResponse(
         val stock: Int
 )
 class VoidRequest (
-        @SerializedName("trans_no") val transNumber: String,
+        @SerializedName("id") val transNumber: String,
         @SerializedName("pin") val pin : Int
 )
 class VoidResponse (
