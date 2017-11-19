@@ -17,11 +17,11 @@ import wangpos.sdk4.libbasebinder.Printer;
 public class Receipt {
     List<ReceiptString> mContents = new ArrayList<>();
 
-    public Receipt(HashMap<String, Integer> products, int totalPrice, int method) {
+    public Receipt(HashMap<String, Integer> products, int method) {
         generateHeader();
         generateTimeAndDate();
         generateItems(products);
-        generateTotalPrice(totalPrice);
+        generateTotalPrice(products);
         generatePaymentMethod(method);
 
         for (ReceiptString string: mContents) {
@@ -67,8 +67,18 @@ public class Receipt {
         mContents.addAll(products);
     }
 
-    private void generateTotalPrice(int price) {
-        mContents.add(new ReceiptString("Total: " + price, 24, Printer.Align.LEFT, false, false));
+    private void generateTotalPrice(HashMap<String, Integer> productMap) {
+        int totalPrice = calculateTotal(productMap);
+        mContents.add(new ReceiptString("Total: " + totalPrice, 24, Printer.Align.LEFT, false, false));
+        mContents.add(new ReceiptString(" ", 30, Printer.Align.LEFT, false, false));
+    }
+
+    private int calculateTotal(HashMap<String, Integer> productMap) {
+        int total = 0;
+        for(String productName : productMap.keySet()) {
+            total += productMap.get(productName);
+        }
+        return total;
     }
 
     private void generatePaymentMethod(int method) {

@@ -17,6 +17,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.HashMap;
+
 @EActivity(R.layout.activity_card_method)
 public class CardMethodActivity extends AppCompatActivity {
 
@@ -43,12 +45,11 @@ public class CardMethodActivity extends AppCompatActivity {
             }
         });
         mMethod = new CardPaymentMethod(mWangpos.getBankCard());
-        mPrinter = MposPrinter.getInstance(this, new Receipt(123456, 2));
+        mPrinter = MposPrinter.getInstance(this, new Receipt(generateDummyData(), 1));
     }
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
         mDialog.show(getFragmentManager(), "dialog");
     }
 
@@ -69,5 +70,13 @@ public class CardMethodActivity extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onCardPaymentSuccessEvent(CardPaymentSuccessEvent event) {
         mPrinter.print();
+    }
+
+    private HashMap<String, Integer> generateDummyData() {
+        HashMap<String, Integer> products = new HashMap<>();
+        products.put("Minyak", 52000);
+        products.put("Mie", 12000);
+
+        return products;
     }
 }
