@@ -2,9 +2,12 @@ package com.bountyhunter.kudo.kudoposretail;
 
 import android.content.Context;
 
+import rx.Observable;
+import rx.Subscriber;
 import sdk4.wangpos.libemvbinder.EmvCore;
 import wangpos.sdk4.libbasebinder.BankCard;
 import wangpos.sdk4.libbasebinder.Core;
+import wangpos.sdk4.libbasebinder.Printer;
 
 /**
  * Created by norman on 11/17/17.
@@ -31,16 +34,26 @@ public class Wangpos {
         return sInstance;
     }
 
-    public void setupWangposCores() {
-        new Thread(new Runnable() {
+    public Observable<BankCard> getObservableBankCard() {
+        return Observable.create(new Observable.OnSubscribe<BankCard>() {
             @Override
-            public void run() {
-                setupBaseCore(mContext);
-                setupEmvCore(mContext);
+            public void call(Subscriber<? super BankCard> subscriber) {
                 setupBankCard(mContext);
-                mDoneInit = true;
+                subscriber.onNext(getBankCard());
+                subscriber.onCompleted();
             }
-        }).start();
+        });
+    }
+
+    public Observable<Core> getObservableBaseCore() {
+        return Observable.create(new Observable.OnSubscribe<Core>() {
+            @Override
+            public void call(Subscriber<? super Core> subscriber) {
+                setupBaseCore(mContext);
+                subscriber.onNext(getBaseCore());
+                subscriber.onCompleted();
+            }
+        });
     }
 
     private void setupBaseCore(Context context) {
