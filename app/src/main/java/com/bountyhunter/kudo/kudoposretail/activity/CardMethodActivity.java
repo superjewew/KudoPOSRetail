@@ -77,8 +77,6 @@ public class CardMethodActivity extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
 
-        mPrinter = MposPrinter.getInstance(this, new Receipt(generateDummyData(), 1));
-        mPrinter.setupPrinter();
     }
 
     @Override
@@ -102,7 +100,7 @@ public class CardMethodActivity extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onCardDetectedSuccessEvent(CardDetectedSuccessEvent event) {
         PinActivity_.IntentBuilder_ builder = PinActivity_.intent(this)
-                .extra(PinActivity.EXTRA_CARD, Parcels.wrap(event.getCard()));
+                .mCard(Parcels.wrap(event.getCard()));
         builder.start();
         this.finish();
     }
