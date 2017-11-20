@@ -1,9 +1,7 @@
 package com.bountyhunter.kudo.kudoposretail.api
 
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
 /**
  * Created by adrian on 11/18/17.
@@ -17,6 +15,6 @@ interface HackaidoApi {
     @POST("doVoid")
     fun void(@Body voidRequest: VoidRequest) : Call<VoidResponse>
 
-    @GET("products")
-    fun products() : Call<ProductResponse>
+    @GET("products/{id}")
+    fun products( @Path(value = "id", encoded = true) id : Integer) : Call<ProductResponse>
 }
