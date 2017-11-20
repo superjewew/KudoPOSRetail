@@ -56,6 +56,8 @@ class CartActivity : AppCompatActivity() {
 
     fun goToCheckout() {
         Snackbar.make(layout_commission_total,"checkout",Snackbar.LENGTH_SHORT).show()
+        var builder = SelectPaymentActivity_.intent(this)
+        builder.start()
     }
 
     companion object {

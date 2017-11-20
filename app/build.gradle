@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 def AAVersion = '4.3.1'
 
@@ -29,7 +32,7 @@ dependencies {
     implementation 'com.github.kenglxn.QRGen:android:2.3.0'
     implementation "org.androidannotations:androidannotations-api:$AAVersion"
     implementation 'com.android.support:design:26.1.0'
-    annotationProcessor "org.androidannotations:androidannotations:$AAVersion"
+    kapt "org.androidannotations:androidannotations:$AAVersion"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
@@ -47,11 +50,5 @@ dependencies {
     //picasso
     compile 'com.squareup.picasso:picasso:2.5.2'
 
-
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-
-
 }
-
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
