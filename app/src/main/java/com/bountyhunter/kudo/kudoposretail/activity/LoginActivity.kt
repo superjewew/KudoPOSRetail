@@ -85,21 +85,23 @@ class LoginActivity : AppCompatActivity() {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true)
+            val disposable = loginManager.login(emailStr, passwordStr)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+
+                    }, {
+
+                    }, {
+                        showToast("Welcome")
+                        goToCatalog()
+                    })
+
+            compositeSubscription.add(disposable)
         }
 
 
-        val disposable = loginManager.login(emailStr, passwordStr)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
 
-                }, {
-
-                }, {
-                    showToast("Welcome")
-                    goToCatalog()
-                })
-        compositeSubscription.add(disposable)
     }
 
     private fun showToast(text: String) {
@@ -119,7 +121,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun isPasswordValid(password: String): Boolean {
         //TODO: Replace this with your own logic
-        return password.length > 4
+        return password.length > 2
     }
 
     /**
