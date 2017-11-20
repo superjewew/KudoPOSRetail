@@ -8,6 +8,7 @@ import com.bountyhunter.kudo.kudoposretail.MposPrinter;
 import com.bountyhunter.kudo.kudoposretail.R;
 import com.bountyhunter.kudo.kudoposretail.Receipt;
 import com.bountyhunter.kudo.kudoposretail.Wangpos;
+import com.bountyhunter.kudo.kudoposretail.event.CardDetectedSuccessEvent;
 import com.bountyhunter.kudo.kudoposretail.event.CardPaymentSuccessEvent;
 import com.bountyhunter.kudo.kudoposretail.paymentmethod.CardPaymentMethod;
 
@@ -31,6 +32,7 @@ public class CardMethodActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mWangpos = Wangpos.getInstance(this);
+        mWangpos.setupWangposCores();
 
         mDialog = MessageDialogFragment.newInstance(R.string.title_choose_another_payment_method,
                 new MessageDialogFragment.DialogClickListener() {
@@ -57,7 +59,7 @@ public class CardMethodActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
-//        mMethod.listen();
+        mMethod.listen();
     }
 
     @Override
@@ -68,8 +70,9 @@ public class CardMethodActivity extends AppCompatActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onCardPaymentSuccessEvent(CardPaymentSuccessEvent event) {
-        mPrinter.print();
+    public void onCardDetectedSuccessEvent(CardDetectedSuccessEvent event) {
+        PinActivity_.IntentBuilder_ builder = PinActivity_.intent(this);
+        builder.start();
     }
 
     private HashMap<String, Integer> generateDummyData() {

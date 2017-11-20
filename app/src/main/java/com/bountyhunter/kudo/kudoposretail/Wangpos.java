@@ -58,4 +58,8 @@ public class Wangpos {
     public BankCard getBankCard() {
         return mBankCard;
     }
+
+    public Core getBaseCore() {
+        return mBaseCore;
+    }
 }

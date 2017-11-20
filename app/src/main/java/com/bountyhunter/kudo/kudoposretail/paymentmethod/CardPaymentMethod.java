@@ -3,6 +3,7 @@ package com.bountyhunter.kudo.kudoposretail.paymentmethod;
 import android.os.RemoteException;
 import android.util.Log;
 
+import com.bountyhunter.kudo.kudoposretail.event.CardDetectedSuccessEvent;
 import com.bountyhunter.kudo.kudoposretail.event.CardPaymentSuccessEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -73,7 +74,7 @@ public class CardPaymentMethod implements PaymentMethod {
                     if (!this.mCanRead || magflag) {
                         if (retvaluedetemag != 0) {
 //                            this.mText = "MAG Test success";
-                            EventBus.getDefault().post(new CardPaymentSuccessEvent());
+                            EventBus.getDefault().post(new CardDetectedSuccessEvent());
                         } else if (retvaluedetemag == 2) {
 //                            this.mText = "MAG Test error";
                         } else {
