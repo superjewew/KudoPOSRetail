@@ -16,8 +16,11 @@ interface HackaidoApi {
     fun void(@Body voidRequest: VoidRequest) : Call<VoidResponse>
 
     @GET("products/{id}")
-    fun products( @Path(value = "id", encoded = true) id : Integer) : Call<ProductResponse>
+    fun products( @Path(value = "id", encoded = true) id : Int) : Call<ProductResponse>
 
     @GET("products")
     fun products( ) : Call<ProductResponse>
+
+    @POST("submitTransaction")
+    fun submitTransaction(@Body transactionRequest: TransactionRequest) : Call<LoginResponse>
 }

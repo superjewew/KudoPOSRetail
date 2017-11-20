@@ -5,6 +5,8 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import android.view.Window
@@ -23,6 +25,8 @@ import rx.subscriptions.CompositeSubscription
 class CatalogActivity : AppCompatActivity() {
 
     val column = 2
+
+    val context : Context = this
 
     private val compositeSubcribtion : CompositeSubscription = CompositeSubscription()
 
@@ -44,6 +48,35 @@ class CatalogActivity : AppCompatActivity() {
 
         rv_products_catalog.layoutManager =
                 GridLayoutManager(this, column)
+
+
+        search_tv.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                if(search_tv.text.length != 0) {
+                    val id : Int = search_tv.text.toString().toInt()
+                    val disposable = catalogManager.getProductById(id)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe (
+                                    {
+                                        data -> initAdapter(data)
+                                    },
+                                    {
+                                        e -> Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+                                    }
+                            )
+                    compositeSubcribtion.add(disposable)
+                }
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        }
+        )
+
         //rv_products_catalog.addItemDecoration(GridCatalogDecoration(12))
 
 //        var alMyProductResponse = ArrayList<ProductCatalog>()

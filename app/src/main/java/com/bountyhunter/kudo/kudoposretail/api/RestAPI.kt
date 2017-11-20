@@ -13,8 +13,8 @@ class RestAPI {
 
     init {
         val retrofit = Retrofit.Builder()
-//                .baseUrl("http://private-9d06dc-hackaido1.apiary-mock.com")
-                .baseUrl("http://192.168.43.113:443/api/")
+                .baseUrl("http://private-9d06dc-hackaido1.apiary-mock.com/")
+//                .baseUrl("http://192.168.43.113:443/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         hackaidoApi = retrofit.create(HackaidoApi::class.java)
@@ -25,8 +25,8 @@ class RestAPI {
             return hackaidoApi
         } else {
             val retrofit = Retrofit.Builder()
-//                    .baseUrl("http://private-9d06dc-hackaido1.apiary-mock.com")
-                    .baseUrl("http://192.168.43.113:443/api/")
+                    .baseUrl("http://private-9d06dc-hackaido1.apiary-mock.com/")
+//                    .baseUrl("http://192.168.43.113:443/api/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
             return retrofit.create(HackaidoApi::class.java)
@@ -45,6 +45,8 @@ class RestAPI {
 
     fun getProducts() = hackaidoApi.products()
 
-    fun getProducts(id : Integer) = hackaidoApi.products(id)
+    fun getProducts(id : Int) = hackaidoApi.products(id)
+
+    fun submitTransaction(transactionRequest: TransactionRequest) = hackaidoApi.submitTransaction(transactionRequest)
 }
 

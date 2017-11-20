@@ -1,6 +1,7 @@
 package com.bountyhunter.kudo.kudoposretail.api
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 /**
  * Created by adrian on 11/18/17.
@@ -37,4 +38,16 @@ class VoidRequest (
 class VoidResponse (
         val code: Int,
         val message: String
+)
+
+data class TransactionRequest (
+    val branch_id: Int = 1,
+    val method: String = "cash",
+    val id: String = "201792827273",
+    val data: List<Transaction> = Arrays.asList(Transaction(5,3), Transaction(6,1))
+)
+
+data class Transaction (
+        val id: Int = 5,
+        val qty: Int = 13
 )
