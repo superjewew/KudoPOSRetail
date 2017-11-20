@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 def AAVersion = '4.3.1'
+def ParcelerVersion = '1.0.3'
 
 android {
     compileSdkVersion 26
@@ -49,6 +50,9 @@ dependencies {
 
     //picasso
     compile 'com.squareup.picasso:picasso:2.5.2'
+
+    kapt "org.parceler:parceler:$ParcelerVersion"
+    implementation "org.parceler:parceler-api:$ParcelerVersion"
 
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 }
