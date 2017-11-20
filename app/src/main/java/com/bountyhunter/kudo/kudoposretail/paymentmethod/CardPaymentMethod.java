@@ -76,7 +76,7 @@ public class CardPaymentMethod implements PaymentMethod {
                     if (!this.mCanRead || magflag) {
                         if (retvaluedetemag == 0) {
                             handleResponse(respdata, resplen[0]);
-                            EventBus.getDefault().post(new CardDetectedSuccessEvent(new Card("","")));
+//                            EventBus.getDefault().post(new CardDetectedSuccessEvent(new Card("","")));
                         } else if (retvaluedetemag == 2) {
 //                            this.mText = "MAG Test error";
                         } else {
@@ -86,13 +86,6 @@ public class CardPaymentMethod implements PaymentMethod {
                     }
                 } while (this.mMagFlag);
 
-//                Message msg = mHandler.obtainMessage(3);
-//                if (retvaluedetemag != 0) {
-//                    msg.arg1 = 1;
-//                } else {
-//                    msg.arg1 = 0;
-//                }
-//                mHandler.sendMessage(msg);
             }
         } while (this.mMagFlag);
     }
@@ -131,30 +124,19 @@ public class CardPaymentMethod implements PaymentMethod {
             Log.d(TAG, new String(data2));
             Log.d(TAG, new String(data3));
 
-            getPanAndHolderString(new String(data1));
+            EventBus.getDefault().post(new CardDetectedSuccessEvent(setupCard(data1)));
         }
+    }
 
-//        switch(response[0]) {
-//            case 0:
-//                returnCode = mBankCard.parseMagnetic(response, resplen, data1, len1, data2, len2, data3, len3);
-//                if(isMethodCallSuccess(returnCode)) {
-//                    Log.d(TAG, "MAG card swiped");
-//                }
-//                break;
-//            case 5:
-//                returnCode = mBankCard.parseART(response, resplen, dataATR, len1);
-//                if(isMethodCallSuccess(returnCode)) {
-//                    Log.d(TAG, "IC card detected");
-//                }
-//
-//                break;
-//        }
+    private Card setupCard(byte[] data1) {
+        String[] cardParsedData = getPanAndHolderString(new String(data1));
+        return new Card(cardParsedData[0],cardParsedData[1]);
     }
 
     private String[] getPanAndHolderString(String magneticStripeData) {
-        String[] results = magneticStripeData.split("^");
-        if(results[2].length() != 0) {
-            results[2] = results[2].substring(0, 27);
+        String[] results = magneticStripeData.split("\\^");
+        if(results[1].length() != 0) {
+            results[1] = results[1].substring(0, 27);
         }
         return results;
     }
