@@ -1,5 +1,7 @@
 package com.bountyhunter.kudo.kudoposretail.activity
 
+import android.content.Context
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -10,6 +12,7 @@ import com.bountyhunter.kudo.kudoposretail.rxjava.VoidManager
 import kotlinx.android.synthetic.main.activity_void.*
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
+import rx.subscriptions.CompositeSubscription
 
 class VoidActivity : AppCompatActivity() {
 
@@ -19,11 +22,21 @@ class VoidActivity : AppCompatActivity() {
 
     private var focusView: View? = null
 
+    private val compositeSubscription = CompositeSubscription()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_void)
 
         void_button.setOnClickListener { attemptVoid() }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (compositeSubscription.hasSubscriptions()) {
+            compositeSubscription.clear()
+        }
+
     }
 
     private fun attemptVoid() {
@@ -50,7 +63,7 @@ class VoidActivity : AppCompatActivity() {
                         },
                         {}
                 )
-
+        compositeSubscription.add(disposable)
     }
 
     private fun resetErrorAndFlags() {
@@ -107,5 +120,12 @@ class VoidActivity : AppCompatActivity() {
 
     private fun isPinValid(password: String): Boolean {
         return password.length > 4
+    }
+
+    companion object {
+        fun newIntent(context: Context) : Intent {
+            val intent = Intent(context, VoidActivity::class.java)
+            return intent
+        }
     }
 }
