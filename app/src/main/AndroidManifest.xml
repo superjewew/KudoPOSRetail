@@ -28,10 +28,18 @@
             android:name=".activity.CartActivity"
             android:label="Cart"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".activity.SelectPaymentActivity_" />
-        <activity android:name=".activity.CardMethodActivity_" />
-        <activity android:name=".activity.EwalletMethodActivity_" />
-        <activity android:name=".activity.PinActivity_"></activity>
+        <activity android:name=".activity.SelectPaymentActivity_"
+            android:label="Pilih Metode"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".activity.CardMethodActivity_"
+            android:label="Kartu"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".activity.EwalletMethodActivity_"
+            android:label="E-Wallet"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".activity.PinActivity_"
+            android:label="PIN"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>
