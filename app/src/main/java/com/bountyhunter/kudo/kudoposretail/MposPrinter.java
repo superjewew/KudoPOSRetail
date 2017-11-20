@@ -43,6 +43,10 @@ public class MposPrinter {
         setupPrinter();
     }
 
+    public void setReceipt(Receipt receipt) {
+        mReceipt = receipt;
+    }
+
     public void setupPrinter() {
         new Thread() {
             public void run() {
