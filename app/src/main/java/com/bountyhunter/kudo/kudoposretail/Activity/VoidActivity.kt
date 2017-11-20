@@ -5,6 +5,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.bountyhunter.kudo.kudoposretail.R
@@ -28,6 +29,9 @@ class VoidActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_void)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeButtonEnabled(true)
+
         void_button.setOnClickListener { attemptVoid() }
     }
 
@@ -39,7 +43,19 @@ class VoidActivity : AppCompatActivity() {
 
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> {
+                this.finish()
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
     private fun attemptVoid() {
+        void_button.isEnabled = false
+
         resetErrorAndFlags()
 
         val transNo = getTransNumberFromEditText()
@@ -61,7 +77,9 @@ class VoidActivity : AppCompatActivity() {
                         {
                             error -> showToast("Gagal membatalkan transaksi")
                         },
-                        {}
+                        {
+                            void_button.isEnabled = true
+                        }
                 )
         compositeSubscription.add(disposable)
     }
