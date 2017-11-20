@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcelable;
 import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,13 +12,21 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.bountyhunter.kudo.kudoposretail.Card;
+import com.bountyhunter.kudo.kudoposretail.MposPrinter;
 import com.bountyhunter.kudo.kudoposretail.R;
+import com.bountyhunter.kudo.kudoposretail.Receipt;
 import com.bountyhunter.kudo.kudoposretail.Wangpos;
 
+import org.androidannotations.annotations.AfterExtras;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
+import org.parceler.Parcel;
+import org.parceler.Parcels;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 
 import rx.Scheduler;
 import rx.Subscriber;
@@ -29,11 +38,13 @@ import wangpos.sdk4.libbasebinder.Core;
 @EActivity(R.layout.activity_pin)
 public class PinActivity extends AppCompatActivity {
 
+    public static final String EXTRA_CARD = "card";
     public static final String TAG = "PIN_ACTIVITY";
     private Context mContext;
     private Core mCore;
     private boolean mAllowSendRotationCommand;
     private EventHandler mHandler = null;
+    private MposPrinter mPrinter;
 
     @ViewById(R.id.button0)
     Button btnb0;
@@ -61,6 +72,9 @@ public class PinActivity extends AppCompatActivity {
     Button btnconfirm;
     @ViewById(R.id.buttoncan)
     Button btncancel;
+
+    @Extra
+    Parcelable mCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +107,24 @@ public class PinActivity extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
 
-//        new PINThread().start();
+    }
+
+    @AfterExtras
+    void setupDataToBePrinted() {
+        HashMap<String, Integer> products = new HashMap<>();
+        products.put("Minyak", 52000);
+        products.put("Mie", 12000);
+
+        Receipt receipt = new Receipt(products, Receipt.METHOD_CARD);
+        Card card = Parcels.unwrap(mCard);
+        receipt.setCard(card);
+
+        setupPrinter(receipt);
+    }
+
+    private void setupPrinter(Receipt receipt) {
+        mPrinter = MposPrinter.getInstance(this, receipt);
+        mPrinter.setupPrinter();
     }
 
     private ICallbackListener callback = new ICallbackListener.Stub() {
@@ -278,6 +309,10 @@ public class PinActivity extends AppCompatActivity {
             if (ret == 0) {
             }
         }
+    }
+
+    private void printReceipt() {
+
     }
 
     private void RestoreKeyPad() {

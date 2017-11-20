@@ -18,6 +18,8 @@ import org.androidannotations.annotations.EActivity;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.parceler.Parcel;
+import org.parceler.Parcels;
 
 import java.util.HashMap;
 
@@ -38,7 +40,6 @@ public class CardMethodActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mWangpos = Wangpos.getInstance(this);
-//        mWangpos.setupWangposCores();
 
         mDialog = MessageDialogFragment.newInstance(R.string.title_choose_another_payment_method,
                 new MessageDialogFragment.DialogClickListener() {
@@ -100,7 +101,8 @@ public class CardMethodActivity extends AppCompatActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onCardDetectedSuccessEvent(CardDetectedSuccessEvent event) {
-        PinActivity_.IntentBuilder_ builder = PinActivity_.intent(this);
+        PinActivity_.IntentBuilder_ builder = PinActivity_.intent(this)
+                .extra(PinActivity.EXTRA_CARD, Parcels.wrap(event.getCard()));
         builder.start();
         this.finish();
     }

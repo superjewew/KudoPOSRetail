@@ -24,6 +24,11 @@ public class SelectPaymentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setupHomeButton();
+
+        HashMap<String, Integer> products = new HashMap<>();
+        products.put("Minyak", 52000);
+        products.put("Mie", 12000);
+        setupPrinter(new Receipt(products,2));
     }
 
     private void setupHomeButton() {
@@ -36,6 +41,7 @@ public class SelectPaymentActivity extends AppCompatActivity {
 
     private void setupPrinter(Receipt receipt) {
         printer = MposPrinter.getInstance(this, receipt);
+        printer.setupPrinter();
     }
 
     @Click(R.id.e_wallet_button)
@@ -52,10 +58,6 @@ public class SelectPaymentActivity extends AppCompatActivity {
 
     @Click(R.id.cash_button)
     public void goToCashPayment() {
-        HashMap<String, Integer> products = new HashMap<>();
-        products.put("Minyak", 52000);
-        products.put("Mie", 12000);
-        setupPrinter(new Receipt(products,2));
         printer.print();
     }
 
