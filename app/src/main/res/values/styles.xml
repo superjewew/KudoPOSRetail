@@ -24,10 +24,18 @@
 
     <style name="edittext_with_image">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">64dp</item>
+        <item name="android:layout_height">42dp</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:background">@color/white</item>
         <item name="android:drawablePadding">16dp</item>
+    </style>
+
+    <style name="support_textinputlayout_white">
+        <item name="android:background">@color/white</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:layout_marginTop">1dp</item>
     </style>
 
 </resources>

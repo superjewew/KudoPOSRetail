@@ -48,15 +48,15 @@
             android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                style="@style/support_textinputlayout_white"
+                android:layout_marginBottom="2dp">
 
                 <AutoCompleteTextView
+                    style="@style/edittext_with_image"
                     android:drawableLeft="@drawable/ic_person_black_18dp"
-                    android:drawablePadding="8dp"
                     android:id="@+id/email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="42dp"
+                    android:layout_gravity="bottom"
                     android:hint="NO HP atau Email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
@@ -65,15 +65,13 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                style="@style/support_textinputlayout_white">
 
                 <EditText
+                    style="@style/edittext_with_image"
                     android:drawableLeft="@drawable/ic_lock_black_18dp"
-                    android:drawablePadding="8dp"
                     android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="42dp"
                     android:hint="Password"
                     android:imeActionId="6"
                     android:imeActionLabel="@string/action_sign_in_short"

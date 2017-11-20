@@ -12,26 +12,34 @@
         android:layout_height="wrap_content"
         android:src="@drawable/im_void_header"
         />
-
-    <EditText
-        style="@style/edittext_with_image"
-        android:id="@+id/transaction_number_et"
+    <android.support.design.widget.TextInputLayout
+        style="@style/support_textinputlayout_white"
+        android:id="@+id/trans_layout"
         android:layout_marginTop="16dp"
-        android:hint="No. Transaksi"
-        android:inputType="number"
-        android:drawableLeft="@drawable/ic_looks_one"
-        app:layout_constraintTop_toBottomOf="@id/header"
-        />
+        app:layout_constraintTop_toBottomOf="@id/header">
 
-    <EditText
-        style="@style/edittext_with_image"
-        android:id="@+id/pin_et"
-        android:layout_marginTop="1dp"
-        android:hint="Verifikasi Password"
-        android:inputType="textPassword"
-        android:drawableLeft="@drawable/ic_lock_black_18dp"
-        app:layout_constraintTop_toBottomOf="@id/transaction_number_et"
+        <EditText
+            style="@style/edittext_with_image"
+            android:id="@+id/transaction_number_et"
+            android:hint="No. Transaksi"
+            android:inputType="number"
+            android:drawableLeft="@drawable/ic_looks_one"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        style="@style/support_textinputlayout_white"
+        android:id="@+id/pin_layout"
+        app:layout_constraintTop_toBottomOf="@id/trans_layout">
+
+        <EditText
+            style="@style/edittext_with_image"
+            android:id="@+id/pin_et"
+            android:hint="Verifikasi Password"
+            android:inputType="textPassword"
+            android:drawableLeft="@drawable/ic_lock_black_18dp"
         />
+    </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/void_button"
@@ -44,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pin_et"
+        app:layout_constraintTop_toBottomOf="@id/pin_layout"
         tools:layout_editor_absoluteY="16dp" />
 
 </android.support.constraint.ConstraintLayout>
