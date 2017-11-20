@@ -2,6 +2,7 @@ package com.bountyhunter.kudo.kudoposretail.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.bountyhunter.kudo.kudoposretail.MessageDialogFragment;
 import com.bountyhunter.kudo.kudoposretail.MposPrinter;
@@ -20,6 +21,11 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import wangpos.sdk4.libbasebinder.BankCard;
+
 @EActivity(R.layout.activity_card_method)
 public class CardMethodActivity extends AppCompatActivity {
 
@@ -32,7 +38,7 @@ public class CardMethodActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mWangpos = Wangpos.getInstance(this);
-        mWangpos.setupWangposCores();
+//        mWangpos.setupWangposCores();
 
         mDialog = MessageDialogFragment.newInstance(R.string.title_choose_another_payment_method,
                 new MessageDialogFragment.DialogClickListener() {
@@ -46,8 +52,32 @@ public class CardMethodActivity extends AppCompatActivity {
                 mDialog.dismiss();
             }
         });
-        mMethod = new CardPaymentMethod(mWangpos.getBankCard());
+
+        Subscriber<BankCard> subscriber = new Subscriber<BankCard>() {
+            @Override
+            public void onCompleted() {
+                Log.d(this.getClass().getSimpleName(), "OnComplete Called");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(BankCard bankCard) {
+                mMethod = new CardPaymentMethod(bankCard);
+                mMethod.listen();
+            }
+        };
+
+        mWangpos.getObservableBankCard()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+
         mPrinter = MposPrinter.getInstance(this, new Receipt(generateDummyData(), 1));
+        mPrinter.setupPrinter();
     }
 
     @Override
@@ -59,7 +89,6 @@ public class CardMethodActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
-        mMethod.listen();
     }
 
     @Override
@@ -73,6 +102,7 @@ public class CardMethodActivity extends AppCompatActivity {
     public void onCardDetectedSuccessEvent(CardDetectedSuccessEvent event) {
         PinActivity_.IntentBuilder_ builder = PinActivity_.intent(this);
         builder.start();
+        this.finish();
     }
 
     private HashMap<String, Integer> generateDummyData() {

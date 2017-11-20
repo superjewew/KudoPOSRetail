@@ -1,6 +1,7 @@
 package com.bountyhunter.kudo.kudoposretail.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.os.RemoteException;
@@ -16,31 +17,43 @@ import com.bountyhunter.kudo.kudoposretail.Wangpos;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import java.io.UnsupportedEncodingException;
+
+import rx.Scheduler;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import wangpos.sdk4.base.ICallbackListener;
 import wangpos.sdk4.libbasebinder.Core;
 
 @EActivity(R.layout.activity_pin)
 public class PinActivity extends AppCompatActivity {
 
+    public static final String TAG = "PIN_ACTIVITY";
+    private Context mContext;
+    private Core mCore;
+    private boolean mAllowSendRotationCommand;
+    private EventHandler mHandler = null;
+
     @ViewById(R.id.button0)
     Button btnb0;
-    @ViewById(R.id.button0)
+    @ViewById(R.id.button1)
     Button btnb1;
-    @ViewById(R.id.button0)
+    @ViewById(R.id.button2)
     Button btnb2;
-    @ViewById(R.id.button0)
+    @ViewById(R.id.button3)
     Button btnb3;
-    @ViewById(R.id.button0)
+    @ViewById(R.id.button4)
     Button btnb4;
-    @ViewById(R.id.button0)
+    @ViewById(R.id.button5)
     Button btnb5;
-    @ViewById(R.id.button0)
+    @ViewById(R.id.button6)
     Button btnb6;
-    @ViewById(R.id.button0)
+    @ViewById(R.id.button7)
     Button btnb7;
-    @ViewById(R.id.button0)
+    @ViewById(R.id.button8)
     Button btnb8;
-    @ViewById(R.id.button0)
+    @ViewById(R.id.button9)
     Button btnb9;
     @ViewById(R.id.buttonclean)
     Button btnclean;
@@ -49,19 +62,38 @@ public class PinActivity extends AppCompatActivity {
     @ViewById(R.id.buttoncan)
     Button btncancel;
 
-    private Core mCore;
-    private boolean mAllowSendRotationCommand;
-    private EventHandler mHandler = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Wangpos wangpos = Wangpos.getInstance(this);
-        mCore = wangpos.getBaseCore();
+        mContext = this;
         mHandler = new EventHandler();
 
-        new PINThread().start();
+        Subscriber<Core> subscriber = new Subscriber<Core>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(Core core) {
+                mCore = core;
+                new PINThread().start();
+            }
+        };
+
+        wangpos.getObservableBaseCore()
+                .observeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(subscriber);
+
+//        new PINThread().start();
     }
 
     private ICallbackListener callback = new ICallbackListener.Stub() {
@@ -85,7 +117,7 @@ public class PinActivity extends AppCompatActivity {
                     mHandler.sendMessage(msg);
                 }
                 try {
-                    mCore.generatePINPrepareData(result, btnb1, btnb2, btnb3, btnb4, btnb5, btnb6, btnb7, btnb8, btnb9, btnb0, btncancel, btnconfirm, btnclean, (Activity) getApplicationContext());
+                    mCore.generatePINPrepareData(result, btnb1, btnb2, btnb3, btnb4, btnb5, btnb6, btnb7, btnb8, btnb9, btnb0, btncancel, btnconfirm, btnclean, (Activity) mContext);
                     resultlen[0] = 105;
                 } catch (Exception e) {
                     Log.e("PINPad", "mReceiver RemoteException " + e.toString());
@@ -146,7 +178,7 @@ public class PinActivity extends AppCompatActivity {
                     btnb0.setText("" + (data[13] - 48));
                     return;
                 case 2:
-                    if(msg.getData() != null) {
+                    if (msg.getData() != null) {
                         int count = msg.getData().getByteArray("data")[1];
                         String stars = "";
                         for (int i = 0; i < count; i++) {
@@ -175,6 +207,11 @@ public class PinActivity extends AppCompatActivity {
                             PINData = new byte[(pinlen + 1)];
                             PINData[0] = data[1];
                             System.arraycopy(data, 4, PINData, 1, pinlen);
+                            try {
+                                Log.d(TAG, new String(PINData, "UTF-8"));
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
 //                            ((TextView) findViewById(R.id.textView)).setText(new String(PINData));
                             return;
                         }
@@ -185,6 +222,11 @@ public class PinActivity extends AppCompatActivity {
                             PINData = new byte[(pinlen + 1)];
                             PINData[0] = data[1];
                             System.arraycopy(data, 4, PINData, 1, pinlen);
+                            try {
+                                Log.d(TAG, new String(PINData, "UTF-8"));
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
 //                            ((TextView) findViewById(R.id.textView)).setText(new String(PINData));
                             return;
                         }
