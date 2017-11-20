@@ -6,6 +6,8 @@ import android.util.Log;
 
 import java.util.List;
 
+import rx.Observable;
+import rx.Subscriber;
 import wangpos.sdk4.libbasebinder.Printer;
 import wangpos.sdk4.libbasebinder.Printer.Align;
 import wangpos.sdk4.libbasebinder.Printer.Font;
@@ -136,7 +138,7 @@ public class MposPrinter {
                         mLoop = false;
                     }
                     result = mPrinter.printFinish();
-                    if (result != 0) {
+                    if (result == 0) {
                         mLoop = false;
                     }
                 } catch (Exception e2) {

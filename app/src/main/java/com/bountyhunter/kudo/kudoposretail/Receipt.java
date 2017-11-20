@@ -15,7 +15,13 @@ import wangpos.sdk4.libbasebinder.Printer;
  */
 
 public class Receipt {
+    public static final int METHOD_EWALLET = 0;
+    public static final int METHOD_CARD = 1;
+    public static final int METHOD_CASH = 2;
+
     List<ReceiptString> mContents = new ArrayList<>();
+
+    private Card mCard = new Card("", "");
 
     public Receipt(HashMap<String, Integer> products, int method) {
         generateHeader();
@@ -31,6 +37,10 @@ public class Receipt {
 
     public List<ReceiptString> getContents() {
         return mContents;
+    }
+
+    public void setCard(Card card) {
+        mCard = card;
     }
 
     private void generateHeader() {
@@ -83,19 +93,19 @@ public class Receipt {
 
     private void generatePaymentMethod(int method) {
         switch(method) {
-            case 0:
+            case METHOD_EWALLET:
                 break;
-            case 1:
+            case METHOD_CARD:
                 List<ReceiptString> footer = new ArrayList<>();
 
                 footer.add(new ReceiptString("Approved", 24, Printer.Align.LEFT, true, false));
-                footer.add(new ReceiptString("Card No 1234 XXXX XXXX XXXX", 24, Printer.Align.LEFT, false, false));
-                footer.add(new ReceiptString("Card Type VISA CREDIT", 24, Printer.Align.LEFT, false, false));
+                footer.add(new ReceiptString("Card No " + mCard.getCardNumber(), 24, Printer.Align.LEFT, false, false));
+                footer.add(new ReceiptString("Card Issuer " + mCard.getCardIssuer() , 24, Printer.Align.LEFT, false, false));
                 footer.add(new ReceiptString("Trace No XXXXXX", 24, Printer.Align.LEFT, false, false));
 
                 mContents.addAll(footer);
                 break;
-            case 2:
+            case METHOD_CASH:
                 break;
         }
     }
