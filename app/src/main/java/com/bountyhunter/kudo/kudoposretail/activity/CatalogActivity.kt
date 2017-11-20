@@ -5,6 +5,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.view.Menu
 import android.view.MenuItem
 import android.view.Window
 import android.widget.Toast
@@ -83,6 +84,19 @@ class CatalogActivity : AppCompatActivity() {
         super.onResume()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId) {
+            R.id.menu_void -> goToVoid()
+            R.id.menu_settlement -> goToSettlement()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     fun initAdapter(productRespons: List<ProductCatalog>) {
         rv_products_catalog.adapter = ProductCatalogAdapter(ArrayList(productRespons)) { productResponse ->
             Toast.makeText(this, productResponse.name, Toast.LENGTH_SHORT).show()
@@ -93,6 +107,15 @@ class CatalogActivity : AppCompatActivity() {
     fun goToCart(product : ProductCatalog) {
         val intent = CartActivity.newIntent(this,product)
         startActivity(intent)
+    }
+
+    fun goToVoid() {
+        val intent = VoidActivity.newIntent(this)
+        startActivity(intent)
+    }
+
+    fun goToSettlement() {
+
     }
 
     companion object {
