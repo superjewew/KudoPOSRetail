@@ -25,16 +25,22 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:id="@+id/logo"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/ic_pos"
             />
 
 
         <TextView
             android:id="@+id/title"
             android:textSize="24sp"
-            android:text="MPOS"
+            android:text="Kudo POS Retail"
             android:layout_centerHorizontal="true"
+            android:layout_below="@+id/logo"
+            android:layout_marginBottom="16dp"
             android:typeface="monospace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -45,6 +51,7 @@
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout

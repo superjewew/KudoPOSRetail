@@ -7,49 +7,161 @@
     android:orientation="vertical"
     android:padding="8dp"
     tools:context="com.bountyhunter.kudo.kudoposretail.activity.PinActivity">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Masukan PIN"
         android:layout_gravity="center_horizontal"
+        android:text="Masukan PIN"
         android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="32dp"
-        android:text="Silahkan masukan 6 digit kode PIN anda"/>
+        android:text="Silahkan masukan 6 digit kode PIN anda" />
+
     <TextView
-        android:textSize="30sp"
-        android:gravity="center_horizontal"
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
+        android:gravity="center_horizontal"
+        android:inputType="textPassword"
         android:text=""
-        android:inputType="textPassword"/>
+        android:textSize="30sp" />
 
-    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
-        <Button android:id="@+id/button1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="1" />
-        <Button android:id="@+id/button2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="2" />
-        <Button android:id="@+id/button3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="3" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:text="1" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:text="2" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:text="3" />
     </LinearLayout>
-    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
-        <Button android:id="@+id/button4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="4" />
-        <Button android:id="@+id/button5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="5" />
-        <Button android:id="@+id/button6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="6" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:text="4" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:text="5" />
+
+        <Button
+            android:id="@+id/button6"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:text="6" />
     </LinearLayout>
-    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
-        <Button android:id="@+id/button7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="7" />
-        <Button android:id="@+id/button8" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="8" />
-        <Button android:id="@+id/button9" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="9" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:text="7" />
+
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:text="8" />
+
+        <Button
+            android:id="@+id/button9"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:text="9" />
     </LinearLayout>
-    <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_weight="0.36">
-        <Button android:id="@+id/button0" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" />
-        <Button android:id="@+id/buttoncan" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/cancel" />
-        <Button android:id="@+id/buttonconfirm" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/confirm" />
-        <Button android:id="@+id/buttonclean" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/clear" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/button0"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:text="0" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.36"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <Button
+            android:id="@+id/buttoncan"
+            android:layout_width="wrap_content"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:text="@string/cancel" />
+
+        <Button
+            android:id="@+id/buttonconfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:text="@string/confirm" />
+
+        <Button
+            android:id="@+id/buttonclean"
+            android:layout_width="wrap_content"
+            android:layout_height="64dp"
+            android:layout_weight="1"
+            android:text="@string/clear" />
     </LinearLayout>
 
 </LinearLayout>
