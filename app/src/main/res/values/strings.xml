@@ -13,6 +13,14 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+        completions."</string>
+    <string name="e_wallet">E-Wallet</string>
+    <string name="debit_credit">Kartu Debit/Kredit</string>
+    <string name="cash">Tunai</string>
+    <string name="alert_dialog_ok">Iya</string>
+    <string name="alert_dialog_cancel">Batal</string>
+    <string name="title_choose_another_payment_method">"Apakah Anda ingin memilih metode pembayaran yang lain?"</string>
+    <string name="cancel">Batal</string>
+    <string name="confirm">Konfirm</string>
+    <string name="clear">Hapus</string>
 </resources>
