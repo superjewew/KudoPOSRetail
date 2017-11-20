@@ -17,4 +17,7 @@ interface HackaidoApi {
 
     @GET("products/{id}")
     fun products( @Path(value = "id", encoded = true) id : Integer) : Call<ProductResponse>
+
+    @GET("products")
+    fun products( ) : Call<ProductResponse>
 }

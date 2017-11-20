@@ -44,5 +44,7 @@ class RestAPI {
     }
 
     fun getProducts() = hackaidoApi.products()
+
+    fun getProducts(id : Integer) = hackaidoApi.products(id)
 }
 

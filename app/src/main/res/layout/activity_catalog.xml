@@ -6,10 +6,32 @@
     android:layout_height="match_parent"
     tools:context="com.bountyhunter.kudo.kudoposretail.activity.CatalogActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/search_text"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.TextInputLayout
+            style="@style/support_textinputlayout_white">
+
+            <AutoCompleteTextView
+                android:id="@+id/search_bar"
+                android:layout_width="match_parent"
+                android:layout_height="29dp"
+                android:hint="Search By Id"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
+        app:layout_constraintBottom_toBottomOf="@id/search_text"
         android:id="@+id/rv_products_catalog"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="73dp"></android.support.v7.widget.RecyclerView>
 
 
 </android.support.constraint.ConstraintLayout>
