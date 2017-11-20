@@ -3,11 +3,13 @@ package com.bountyhunter.kudo.kudoposretail.paymentmethod;
 import android.os.RemoteException;
 import android.util.Log;
 
+import com.bountyhunter.kudo.kudoposretail.Card;
 import com.bountyhunter.kudo.kudoposretail.event.CardDetectedSuccessEvent;
 import com.bountyhunter.kudo.kudoposretail.event.CardPaymentSuccessEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
+import rx.Observable;
 import wangpos.sdk4.libbasebinder.BankCard;
 
 /**
@@ -55,7 +57,7 @@ public class CardPaymentMethod implements PaymentMethod {
         boolean magflag = false;
         do {
             try {
-                retvalueocmag = this.mBankCard.openCloseCardReader(4, 1);
+                retvalueocmag = this.mBankCard.openCloseCardReader(4 | 1, 1);
             } catch (RemoteException e2) {
                 e2.printStackTrace();
             }
@@ -72,9 +74,9 @@ public class CardPaymentMethod implements PaymentMethod {
                         magflag = true;
                     }
                     if (!this.mCanRead || magflag) {
-                        if (retvaluedetemag != 0) {
-//                            this.mText = "MAG Test success";
-                            EventBus.getDefault().post(new CardDetectedSuccessEvent());
+                        if (retvaluedetemag == 0) {
+                            handleResponse(respdata, resplen[0]);
+                            EventBus.getDefault().post(new CardDetectedSuccessEvent(new Card("","")));
                         } else if (retvaluedetemag == 2) {
 //                            this.mText = "MAG Test error";
                         } else {
@@ -108,5 +110,56 @@ public class CardPaymentMethod implements PaymentMethod {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+    }
+
+    private void handleResponse(byte[] response, int resplen) {
+        byte[] data1 = new byte[77];
+        int[] len1 = new int[1];
+        byte[] data2 = new byte[38];
+        int[] len2 = new int[1];
+        byte[] data3 = new byte[115];
+        int[] len3 = new int[1];
+
+        byte[] dataATR = new byte[resplen];
+
+        int returnCode;
+
+        returnCode = mBankCard.parseMagnetic(response, resplen, data1, len1, data2, len2, data3, len3);
+        if(isMethodCallSuccess(returnCode)) {
+            Log.d(TAG, "MAG card swiped");
+            Log.d(TAG, new String(data1));
+            Log.d(TAG, new String(data2));
+            Log.d(TAG, new String(data3));
+
+            getPanAndHolderString(new String(data1));
+        }
+
+//        switch(response[0]) {
+//            case 0:
+//                returnCode = mBankCard.parseMagnetic(response, resplen, data1, len1, data2, len2, data3, len3);
+//                if(isMethodCallSuccess(returnCode)) {
+//                    Log.d(TAG, "MAG card swiped");
+//                }
+//                break;
+//            case 5:
+//                returnCode = mBankCard.parseART(response, resplen, dataATR, len1);
+//                if(isMethodCallSuccess(returnCode)) {
+//                    Log.d(TAG, "IC card detected");
+//                }
+//
+//                break;
+//        }
+    }
+
+    private String[] getPanAndHolderString(String magneticStripeData) {
+        String[] results = magneticStripeData.split("^");
+        if(results[2].length() != 0) {
+            results[2] = results[2].substring(0, 27);
+        }
+        return results;
+    }
+
+    private boolean isMethodCallSuccess(int returnCode) {
+        return returnCode == 0;
     }
 }
