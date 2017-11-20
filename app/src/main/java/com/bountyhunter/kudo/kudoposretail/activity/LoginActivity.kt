@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.bountyhunter.kudo.kudoposretail.R
@@ -89,9 +90,10 @@ class LoginActivity : AppCompatActivity() {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
-
+                        Log.d("LOGIN", "onnext")
                     }, {
-
+                        error -> Log.e("LOGIN", error.printStackTrace().toString())
+                        showProgress(false)
                     }, {
                         showToast("Welcome")
                         goToCatalog()

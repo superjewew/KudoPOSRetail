@@ -8,12 +8,13 @@ import retrofit2.converter.gson.GsonConverterFactory
  * Created by adrian on 11/18/17.
  */
 class RestAPI {
-
+//0522
     val hackaidoApi: HackaidoApi
 
     init {
         val retrofit = Retrofit.Builder()
-                .baseUrl("http://private-9d06dc-hackaido1.apiary-mock.com")
+//                .baseUrl("http://private-9d06dc-hackaido1.apiary-mock.com")
+                .baseUrl("http://192.168.43.113:443/hackaidopos/public/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         hackaidoApi = retrofit.create(HackaidoApi::class.java)
@@ -24,7 +25,8 @@ class RestAPI {
             return hackaidoApi
         } else {
             val retrofit = Retrofit.Builder()
-                    .baseUrl("http://private-9d06dc-hackaido1.apiary-mock.com")
+//                    .baseUrl("http://private-9d06dc-hackaido1.apiary-mock.com")
+                    .baseUrl("http://192.168.43.113:443/hackaidopos/public/api/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
             return retrofit.create(HackaidoApi::class.java)

@@ -10,13 +10,13 @@ import retrofit2.http.POST
  */
 interface HackaidoApi {
 
-    @POST("/doLogin")
+    @POST("doLogin")
     fun login(@Body loginRequest: LoginRequest)
             : Call<LoginResponse>
 
-    @POST("/doVoid")
+    @POST("doVoid")
     fun void(@Body voidRequest: VoidRequest) : Call<VoidResponse>
 
-    @GET("/products")
+    @GET("products")
     fun products() : Call<ProductResponse>
 }
