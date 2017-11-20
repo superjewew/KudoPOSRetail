@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context="com.bountyhunter.kudo.kudoposretail.Activity.VoidActivity">
+
+    <EditText
+        android:id="@+id/transaction_number_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="No. Transaksi"/>
+
+    <EditText
+        android:id="@+id/pin_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Verifikasi Password"
+        app:layout_constraintTop_toBottomOf="@id/transaction_number_et"/>
+
+    <Button
+        android:id="@+id/void_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Batalkan"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pin_et"
+        tools:layout_editor_absoluteY="16dp" />
+
+</android.support.constraint.ConstraintLayout>

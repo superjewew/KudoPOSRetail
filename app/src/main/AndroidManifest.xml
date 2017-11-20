@@ -40,6 +40,9 @@
         <activity android:name=".activity.PinActivity_"
             android:label="PIN"
             android:theme="@style/AppTheme"/>
+        <activity android:name=".activity.VoidActivity"
+            android:label="Pembatalan Transaksi"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

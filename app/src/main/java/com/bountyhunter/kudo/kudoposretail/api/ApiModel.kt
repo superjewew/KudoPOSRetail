@@ -29,3 +29,12 @@ data class ProductCatalog(
         val stock: Int = 0,
         val commission: Double = 0.0,
         val image: String = "No Image")
+
+class VoidRequest (
+        @SerializedName("id") val transNumber: String,
+        @SerializedName("pin") val pin : Int
+)
+class VoidResponse (
+        val code: Int,
+        val message: String
+)
