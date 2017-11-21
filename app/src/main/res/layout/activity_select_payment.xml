@@ -17,6 +17,9 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="16dp"
         android:text="@string/e_wallet"
+        android:drawableLeft="@drawable/ic_e_wallet"
+        android:padding="16dp"
+        android:backgroundTint="@color/white"
         />
 
     <Button
@@ -26,7 +29,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/e_wallet_button"
-        android:text="@string/debit_credit"/>
+        android:text="@string/debit_credit"
+        android:drawableLeft="@drawable/ic_card"
+        android:padding="16dp"
+        android:backgroundTint="@color/white"
+        />
 
     <Button
         android:id="@+id/cash_button"
@@ -35,6 +42,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/card_button"
-        android:text="@string/cash"/>
+        android:text="@string/cash"
+        android:drawableLeft="@drawable/ic_cash"
+        android:padding="16dp"
+        android:backgroundTint="@color/white"
+        />
 
 </android.support.constraint.ConstraintLayout>

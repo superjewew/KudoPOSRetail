@@ -2,6 +2,7 @@ package com.bountyhunter.kudo.kudoposretail.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
@@ -45,6 +46,7 @@ public class PinActivity extends AppCompatActivity {
     private boolean mAllowSendRotationCommand;
     private EventHandler mHandler = null;
     private MposPrinter mPrinter;
+    private Thread mThread;
 
     @ViewById(R.id.button0)
     Button btnb0;
@@ -98,15 +100,25 @@ public class PinActivity extends AppCompatActivity {
             @Override
             public void onNext(Core core) {
                 mCore = core;
-                new PINThread().start();
+                mThread = new PINThread();
+                mThread.start();
             }
         };
 
         wangpos.getObservableBaseCore()
                 .observeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
 
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mThread != null && !mThread.isInterrupted()) {
+            mThread.interrupt();
+            mThread = null;
+        }
     }
 
     @AfterExtras
@@ -115,16 +127,15 @@ public class PinActivity extends AppCompatActivity {
         products.put("Minyak", 52000);
         products.put("Mie", 12000);
 
-        Receipt receipt = new Receipt(products, Receipt.METHOD_CARD);
         Card card = Parcels.unwrap(mCard);
-        receipt.setCard(card);
+        Receipt receipt = new Receipt(products, Receipt.METHOD_CARD, card);
 
         setupPrinter(receipt);
     }
 
     private void setupPrinter(Receipt receipt) {
         mPrinter = MposPrinter.getInstance(this, receipt);
-        mPrinter.setupPrinter();
+        mPrinter.setReceipt(receipt);
     }
 
     private ICallbackListener callback = new ICallbackListener.Stub() {
@@ -243,6 +254,8 @@ public class PinActivity extends AppCompatActivity {
                             } catch (UnsupportedEncodingException e) {
                                 e.printStackTrace();
                             }
+                            printReceipt();
+                            goToTransSuccess();
 //                            ((TextView) findViewById(R.id.textView)).setText(new String(PINData));
                             return;
                         }
@@ -258,6 +271,8 @@ public class PinActivity extends AppCompatActivity {
                             } catch (UnsupportedEncodingException e) {
                                 e.printStackTrace();
                             }
+                            printReceipt();
+                            goToTransSuccess();
 //                            ((TextView) findViewById(R.id.textView)).setText(new String(PINData));
                             return;
                         }
@@ -299,6 +314,11 @@ public class PinActivity extends AppCompatActivity {
 
     public class PINThread extends Thread {
         public void run() {
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+
+            }
             String pan = "1111111111111111";
             int ret = -1;
             try {
@@ -311,7 +331,26 @@ public class PinActivity extends AppCompatActivity {
         }
     }
 
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Log.e("zys", "rotation1111----------mAllowSendRotationCommand = " + this.mAllowSendRotationCommand);
+        if (this.mAllowSendRotationCommand) {
+            Log.e("zys", "rotation----------");
+            try {
+                Log.e("zys", "1+++++++++++");
+                Log.e("zys", "2===========");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void printReceipt() {
+        mPrinter.print();
+
+    }
+
+    private void goToTransSuccess() {
 
     }
 

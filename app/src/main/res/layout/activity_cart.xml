@@ -167,17 +167,21 @@
 
             <Button
                 android:id="@+id/shopping_cart_btn_continue_shopping"
+                android:background="@android:color/transparent"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="LANJUT BELANJA" />
+                android:text="LANJUT BELANJA"
+                android:textColor="@color/colorAccent"/>
 
             <Button
                 android:id="@+id/shopping_cart_btn_checkout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="CHECKOUT" />
+                android:backgroundTint="@color/colorAccent"
+                android:text="CHECKOUT"
+                android:textColor="@color/white"/>
 
         </LinearLayout>
 

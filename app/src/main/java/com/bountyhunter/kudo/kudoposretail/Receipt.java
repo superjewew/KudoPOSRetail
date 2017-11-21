@@ -23,7 +23,8 @@ public class Receipt {
 
     private Card mCard = new Card("", "");
 
-    public Receipt(HashMap<String, Integer> products, int method) {
+    public Receipt(HashMap<String, Integer> products, int method, Card card) {
+        setCard(card);
         generateHeader();
         generateTimeAndDate();
         generateItems(products);
@@ -40,13 +41,15 @@ public class Receipt {
     }
 
     public void setCard(Card card) {
-        mCard = card;
+        if(card != null) {
+            mCard = card;
+        }
     }
 
     private void generateHeader() {
         List<ReceiptString> header = new ArrayList<>();
 
-        header.add(new ReceiptString("E-Receipt", 30, Printer.Align.CENTER, true, false));
+        header.add(new ReceiptString("Sale-Receipt", 30, Printer.Align.CENTER, true, false));
         header.add(new ReceiptString("Kudo Store", 24, Printer.Align.LEFT, true, false));
         header.add(new ReceiptString("Kudoplex2", 24, Printer.Align.LEFT, false, false));
         header.add(new ReceiptString("Radio Dalam", 24, Printer.Align.LEFT, false, false));

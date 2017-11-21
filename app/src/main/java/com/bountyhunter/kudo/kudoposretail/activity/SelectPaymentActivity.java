@@ -42,7 +42,7 @@ public class SelectPaymentActivity extends AppCompatActivity {
         HashMap<String, Integer> products = new HashMap<>();
         products.put("Minyak", 52000);
         products.put("Mie", 12000);
-        setupPrinter(new Receipt(products,2));
+        setupPrinter(new Receipt(products,2, null));
     }
 
     private void setupHomeButton() {
@@ -55,7 +55,6 @@ public class SelectPaymentActivity extends AppCompatActivity {
 
     private void setupPrinter(Receipt receipt) {
         printer = MposPrinter.getInstance(this, receipt);
-        printer.setupPrinter();
     }
 
     @Click(R.id.e_wallet_button)
