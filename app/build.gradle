@@ -6,6 +6,7 @@ apply plugin: 'realm-android'
 
 def AAVersion = '4.3.1'
 def ParcelerVersion = '1.0.3'
+def anko_version = '0.10.2'
 
 android {
     compileSdkVersion 26
@@ -54,6 +55,10 @@ dependencies {
 
     kapt "org.parceler:parceler:$ParcelerVersion"
     implementation "org.parceler:parceler-api:$ParcelerVersion"
+
+    implementation "org.jetbrains.anko:anko-commons:$anko_version"
+
+    implementation 'io.realm:android-adapters:2.1.1'
 
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 }
