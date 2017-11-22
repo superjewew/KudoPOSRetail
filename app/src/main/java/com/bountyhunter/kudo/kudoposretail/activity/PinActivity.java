@@ -16,20 +16,18 @@ import android.widget.TextView;
 import com.bountyhunter.kudo.kudoposretail.Card;
 import com.bountyhunter.kudo.kudoposretail.MposPrinter;
 import com.bountyhunter.kudo.kudoposretail.R;
-import com.bountyhunter.kudo.kudoposretail.Receipt;
+import com.bountyhunter.kudo.kudoposretail.receipt.Receipt;
 import com.bountyhunter.kudo.kudoposretail.Wangpos;
 
 import org.androidannotations.annotations.AfterExtras;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
-import org.parceler.Parcel;
 import org.parceler.Parcels;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
-import rx.Scheduler;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;

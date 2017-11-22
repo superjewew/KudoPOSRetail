@@ -4,10 +4,10 @@ import android.content.Context;
 import android.os.RemoteException;
 import android.util.Log;
 
+import com.bountyhunter.kudo.kudoposretail.receipt.Receipt;
+
 import java.util.List;
 
-import rx.Observable;
-import rx.Subscriber;
 import wangpos.sdk4.libbasebinder.Printer;
 import wangpos.sdk4.libbasebinder.Printer.Align;
 import wangpos.sdk4.libbasebinder.Printer.Font;
@@ -30,7 +30,7 @@ public class MposPrinter {
     private boolean mDoneInit = false;
 
     public static MposPrinter getInstance(Context context, Receipt receipt) {
-        if(sInstance == null) {
+        if (sInstance == null) {
             sInstance = new MposPrinter(context, receipt);
         }
 
@@ -58,7 +58,7 @@ public class MposPrinter {
 
     public void print() {
         mLoop = true;
-        if(mDoneInit && !mThreadRunning) {
+        if (mDoneInit && !mThreadRunning) {
             new PrintThread().start();
         }
     }
@@ -135,7 +135,7 @@ public class MposPrinter {
                 Log.v("zhangning", "print data init " + result);
                 try {
                     List<ReceiptString> stringsToBePrinted = mReceipt.getContents();
-                    for(ReceiptString toBePrinted : stringsToBePrinted) {
+                    for (ReceiptString toBePrinted : stringsToBePrinted) {
                         result = printString(toBePrinted);
                     }
                     if (mPrinter.printPaper(100) != 0) {

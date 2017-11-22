@@ -7,18 +7,14 @@ import android.util.Log;
 import com.bountyhunter.kudo.kudoposretail.MessageDialogFragment;
 import com.bountyhunter.kudo.kudoposretail.MposPrinter;
 import com.bountyhunter.kudo.kudoposretail.R;
-import com.bountyhunter.kudo.kudoposretail.Receipt;
 import com.bountyhunter.kudo.kudoposretail.Wangpos;
 import com.bountyhunter.kudo.kudoposretail.event.CardDetectedSuccessEvent;
-import com.bountyhunter.kudo.kudoposretail.event.CardPaymentSuccessEvent;
 import com.bountyhunter.kudo.kudoposretail.paymentmethod.CardPaymentMethod;
 
-import org.androidannotations.annotations.AfterExtras;
 import org.androidannotations.annotations.EActivity;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.parceler.Parcel;
 import org.parceler.Parcels;
 
 import java.util.HashMap;
