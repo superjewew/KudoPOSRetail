@@ -32,8 +32,7 @@ data class ProductCatalog(
         val image: String = "No Image")
 
 class VoidRequest (
-        @SerializedName("id") val transNumber: String,
-        @SerializedName("pin") val pin : Int
+        @SerializedName("id") val transNumber: String
 )
 class VoidResponse (
         val code: Int,

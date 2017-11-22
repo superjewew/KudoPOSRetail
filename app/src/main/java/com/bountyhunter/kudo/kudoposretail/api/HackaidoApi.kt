@@ -12,7 +12,7 @@ interface HackaidoApi {
     fun login(@Body loginRequest: LoginRequest)
             : Call<LoginResponse>
 
-    @POST("doVoid")
+    @POST("void")
     fun void(@Body voidRequest: VoidRequest) : Call<VoidResponse>
 
     @GET("products/{id}")

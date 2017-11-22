@@ -38,8 +38,8 @@ class RestAPI {
         return hackaidoApi.login(loginRequest)
     }
 
-    fun void(transNo: String, pin : Int): Call<VoidResponse> {
-        var voidRequest = VoidRequest(transNo, pin)
+    fun void(transNo: String): Call<VoidResponse> {
+        var voidRequest = VoidRequest(transNo)
         return hackaidoApi.void(voidRequest)
     }
 

@@ -67,7 +67,7 @@ class VoidActivity : AppCompatActivity() {
 
         checkIfError()
 
-        val disposable = voidManager.void(transNo, Integer.valueOf(pin))
+        val disposable = voidManager.void(transNo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

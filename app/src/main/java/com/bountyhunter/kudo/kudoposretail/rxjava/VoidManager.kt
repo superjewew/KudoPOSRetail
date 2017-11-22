@@ -9,11 +9,11 @@ import rx.Observable
  */
 class VoidManager {
 
-    fun void(transactionNumber: String, pin : Int) : Observable<VoidResponse> {
+    fun void(transactionNumber: String) : Observable<VoidResponse> {
         return Observable.create { subscriber ->
             run {
                 val restAPI = RestAPI()
-                val callResponse = restAPI.void(transactionNumber, pin);
+                val callResponse = restAPI.void(transactionNumber)
                 val response = callResponse.execute()
                 if(response.isSuccessful) {
 
