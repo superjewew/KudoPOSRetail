@@ -10,11 +10,10 @@ import android.widget.Toast;
 
 import com.bountyhunter.kudo.kudoposretail.MposPrinter;
 import com.bountyhunter.kudo.kudoposretail.R;
-import com.bountyhunter.kudo.kudoposretail.Receipt;
+import com.bountyhunter.kudo.kudoposretail.receipt.Receipt;
 import com.bountyhunter.kudo.kudoposretail.api.LoginResponse;
-import com.bountyhunter.kudo.kudoposretail.api.Transaction;
 import com.bountyhunter.kudo.kudoposretail.api.TransactionRequest;
-import com.bountyhunter.kudo.kudoposretail.paymentmethod.CardPaymentMethod;
+import com.bountyhunter.kudo.kudoposretail.model.CartItem;
 import com.bountyhunter.kudo.kudoposretail.rxjava.TransactionManager;
 
 import org.androidannotations.annotations.Click;
@@ -22,10 +21,11 @@ import org.androidannotations.annotations.EActivity;
 
 import java.util.HashMap;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-import wangpos.sdk4.libbasebinder.BankCard;
 
 @EActivity(R.layout.activity_select_payment)
 public class SelectPaymentActivity extends AppCompatActivity {
@@ -33,15 +33,23 @@ public class SelectPaymentActivity extends AppCompatActivity {
     MposPrinter printer;
     final Context mContext = this;
 
+    private Realm mRealm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setupHomeButton();
 
+        mRealm = Realm.getDefaultInstance();
+
+        RealmResults<CartItem> results = mRealm.where(CartItem.class).findAll();
+
         HashMap<String, Integer> products = new HashMap<>();
-        products.put("Minyak", 52000);
-        products.put("Mie", 12000);
+
+        for(CartItem item : results) {
+            products.put(item.getMItemName(), (int) (item.getMItemPrice() * item.getMItemQuantity()));
+        }
         setupPrinter(new Receipt(products,2, null));
     }
 
@@ -72,7 +80,6 @@ public class SelectPaymentActivity extends AppCompatActivity {
     @Click(R.id.cash_button)
     public void goToCashPayment() {
         TransactionManager transactionManager = new TransactionManager();
-        transactionManager.submitTransaction(new TransactionRequest());
 
         Subscriber<LoginResponse> subscriber = new Subscriber<LoginResponse>() {
             @Override
