@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.RemoteException;
 import android.util.Log;
 
+import com.bountyhunter.kudo.kudoposretail.receipt.BaseReceipt;
 import com.bountyhunter.kudo.kudoposretail.receipt.Receipt;
 
 import java.util.List;
@@ -23,13 +24,13 @@ public class MposPrinter {
     private Printer mPrinter;
     private System mSystem;
     private Context mContext;
-    private Receipt mReceipt;
+    private BaseReceipt mReceipt;
     private List<ReceiptString> mStringsToBePrinted;
     private boolean mLoop = false;
     private boolean mThreadRunning = false;
     private boolean mDoneInit = false;
 
-    public static MposPrinter getInstance(Context context, Receipt receipt) {
+    public static MposPrinter getInstance(Context context, BaseReceipt receipt) {
         if (sInstance == null) {
             sInstance = new MposPrinter(context, receipt);
         }
@@ -37,13 +38,13 @@ public class MposPrinter {
         return sInstance;
     }
 
-    private MposPrinter(Context context, Receipt receipt) {
+    private MposPrinter(Context context, BaseReceipt receipt) {
         mContext = context;
         mReceipt = receipt;
         setupPrinter();
     }
 
-    public void setReceipt(Receipt receipt) {
+    public void setReceipt(BaseReceipt receipt) {
         mReceipt = receipt;
     }
 
