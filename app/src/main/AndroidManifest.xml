@@ -24,26 +24,33 @@
         <activity
             android:name=".activity.CatalogActivity"
             android:label="Products Catalog"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.CartActivity"
             android:label="Cart"
-            android:theme="@style/AppTheme"/>
-        <activity android:name=".activity.SelectPaymentActivity_"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.SelectPaymentActivity_"
             android:label="Pilih Metode"
-            android:theme="@style/AppTheme"/>
-        <activity android:name=".activity.CardMethodActivity_"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.CardMethodActivity_"
             android:label="Kartu"
-            android:theme="@style/AppTheme"/>
-        <activity android:name=".activity.EwalletMethodActivity_"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.EwalletMethodActivity_"
             android:label="E-Wallet"
-            android:theme="@style/AppTheme"/>
-        <activity android:name=".activity.PinActivity_"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.PinActivity_"
             android:label="PIN"
-            android:theme="@style/AppTheme"/>
-        <activity android:name=".activity.VoidActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.VoidActivity"
             android:label="Pembatalan Transaksi"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activity.ProcessTransactionActivity" />
+        <activity android:name=".activity.SettlementActivity"></activity>
     </application>
 
 </manifest>
