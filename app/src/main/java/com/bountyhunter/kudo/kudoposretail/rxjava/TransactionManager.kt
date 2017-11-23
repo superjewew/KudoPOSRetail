@@ -15,7 +15,7 @@ class TransactionManager {
         return Observable.create { subscriber ->
             run {
                 val restApi = RestAPI()
-                val callResponse = restApi.submitTransaction(TransactionRequest())
+                val callResponse = restApi.submitTransaction(request)
                 val response = callResponse.execute()
                 if (response.isSuccessful) {
                     val message = response.body()
