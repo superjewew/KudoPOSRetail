@@ -15,8 +15,8 @@ import wangpos.sdk4.libbasebinder.Printer;
 
 public class VoidReceipt extends BaseReceipt {
 
-    public VoidReceipt(HashMap<String, Integer> products, int method, Card card) {
-        super(products, method, card);
+    public VoidReceipt(String transNo, HashMap<String, Integer> products, int method, Card card) {
+        super(transNo, products, method, card);
     }
 
     @Override
