@@ -49,8 +49,12 @@
             android:name=".activity.VoidActivity"
             android:label="Pembatalan Transaksi"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activity.ProcessTransactionActivity" />
-        <activity android:name=".activity.SettlementActivity"></activity>
+        <activity android:name=".activity.ProcessTransactionActivity"
+            android:label="Proses Transaksi"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".activity.SettlementActivity"
+            android:label="Settlement"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

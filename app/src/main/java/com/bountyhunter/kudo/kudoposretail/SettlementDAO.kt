@@ -9,11 +9,13 @@ import io.realm.RealmResults
  */
 class SettlementDAO {
 
+    val STATUS_VOID = "VOID"
+
     var mRealm : Realm = Realm.getDefaultInstance()
 
     fun getAll() : RealmResults<Settlement> = mRealm.where(Settlement::class.java).findAll()
 
-    fun create(transNo : String, mTotalPrice : Long) {
+    fun create(transNo: String, mTotalPrice: Double) {
         mRealm.executeTransaction({ realm ->
             val settlement = realm.createObject(Settlement::class.java)
             settlement.transId = "" + transNo
@@ -25,4 +27,23 @@ class SettlementDAO {
         var results = mRealm.where(Settlement::class.java).findAll()
         results.deleteAllFromRealm()
     }
+
+    fun updateStatus(transNo: String, status: String): Double {
+        var settlementAmount = 0.0
+
+        Realm.getDefaultInstance().use {
+            val result = it.where(Settlement::class.java).beginsWith("transId", transNo).findFirst() ?: throw SettlementNotFoundException()
+            if(result.status == STATUS_VOID) throw SettlementAlreadyVoidException()
+            it.executeTransaction {
+                result.status = status
+                settlementAmount = result.price
+            }
+        }
+
+        return settlementAmount
+    }
+
+    class SettlementNotFoundException : Throwable()
+
+    class SettlementAlreadyVoidException : Throwable()
 }

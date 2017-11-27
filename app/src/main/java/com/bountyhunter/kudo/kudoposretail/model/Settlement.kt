@@ -7,5 +7,6 @@ import io.realm.RealmObject
  */
 open class Settlement : RealmObject() {
     var transId : String = ""
-    var price : Long = 0
+    var price : Double = 0.0
+    var status : String = "Success"
 }
