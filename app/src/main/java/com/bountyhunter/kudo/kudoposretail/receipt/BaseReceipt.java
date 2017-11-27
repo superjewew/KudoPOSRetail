@@ -22,6 +22,7 @@ public abstract class BaseReceipt {
     public static final int METHOD_EWALLET = 0;
     public static final int METHOD_CARD = 1;
     public static final int METHOD_CASH = 2;
+    public static final int SETTLEMENT = 3;
 
     List<ReceiptString> mContents = new ArrayList<>();
 
@@ -75,7 +76,7 @@ public abstract class BaseReceipt {
 
     }
 
-    private void generateItems(HashMap<String, Integer> productMap) {
+    void generateItems(HashMap<String, Integer> productMap) {
         List<ReceiptString> products = new ArrayList<>();
 
         if(productMap != null) {
@@ -119,6 +120,9 @@ public abstract class BaseReceipt {
                 break;
             case METHOD_CASH:
                 mContents.add(new ReceiptString("CASH", 24, Printer.Align.LEFT, false, false));
+                break;
+            case SETTLEMENT:
+                mContents.add(new ReceiptString("Transaction", 24, Printer.Align.LEFT, false, false));
                 break;
         }
     }

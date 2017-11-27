@@ -40,4 +40,9 @@ public class VoidReceipt extends BaseReceipt {
 
         mContents.addAll(header);
     }
+
+    @Override
+    void generateItems(HashMap<String, Integer> productMap) {
+        // Do not print items for void receipt
+    }
 }
