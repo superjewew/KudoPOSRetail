@@ -117,11 +117,6 @@ class CatalogActivity : AppCompatActivity() {
         compositeSubcribtion.add(disposable)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        realm.close()
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main, menu)
         return super.onCreateOptionsMenu(menu)
@@ -131,6 +126,7 @@ class CatalogActivity : AppCompatActivity() {
         when(item?.itemId) {
             R.id.menu_void -> goToVoid()
             R.id.menu_settlement -> goToSettlement()
+            R.id.menu_cart -> goToCart()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -142,10 +138,14 @@ class CatalogActivity : AppCompatActivity() {
         }
     }
 
+    fun goToCart() {
+        val intent = CartActivity.newIntent(this)
+        startActivity(intent)
+    }
+
     fun goToCart(product : ProductCatalog) {
         tryAddProductToCart(product)
-        val intent = CartActivity.newIntent(this,product)
-        startActivity(intent)
+        goToCart()
     }
 
     fun goToVoid() {
@@ -154,7 +154,8 @@ class CatalogActivity : AppCompatActivity() {
     }
 
     fun goToSettlement() {
-
+        val intent = SettlementActivity.newIntent(this)
+        startActivity(intent)
     }
 
     fun tryAddProductToCart(product : ProductCatalog) {

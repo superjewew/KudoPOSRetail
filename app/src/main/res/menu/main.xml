@@ -2,14 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/menu_cart"
+        android:title="@string/action_cart"
+        android:orderInCategory="1"
+        android:icon="@drawable/ic_action_shopping_cart"
+        app:showAsAction="ifRoom"
+        />
+    <item
         android:id="@+id/menu_void"
         android:title="@string/menu_void"
-        android:orderInCategory="1"
+        android:orderInCategory="2"
         app:showAsAction="never"/>
     <item
         android:id="@+id/menu_settlement"
         android:title="@string/settlement"
-        android:orderInCategory="1"
+        android:orderInCategory="3"
         app:showAsAction="never"/>
 
 </menu>
