@@ -8,7 +8,10 @@ import android.text.TextUtils
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import com.bountyhunter.kudo.kudoposretail.MposPrinter
 import com.bountyhunter.kudo.kudoposretail.R
+import com.bountyhunter.kudo.kudoposretail.SettlementDAO
+import com.bountyhunter.kudo.kudoposretail.receipt.VoidReceipt
 import com.bountyhunter.kudo.kudoposretail.rxjava.VoidManager
 import kotlinx.android.synthetic.main.activity_void.*
 import rx.android.schedulers.AndroidSchedulers
@@ -25,6 +28,8 @@ class VoidActivity : AppCompatActivity() {
 
     private val compositeSubscription = CompositeSubscription()
 
+    private lateinit var printer : MposPrinter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_void)
@@ -33,6 +38,8 @@ class VoidActivity : AppCompatActivity() {
         supportActionBar?.setHomeButtonEnabled(true)
 
         void_button.setOnClickListener { attemptVoid() }
+
+        printer = MposPrinter.getInstance(this, null)
     }
 
     override fun onPause() {
@@ -60,6 +67,7 @@ class VoidActivity : AppCompatActivity() {
 
         val transNo = getTransNumberFromEditText()
         val pin = getPinFromEditText()
+        val receiptProduct: HashMap<String, Int> = HashMap()
 
         checkPasswordValid(transNo, pin)
 
@@ -82,6 +90,21 @@ class VoidActivity : AppCompatActivity() {
                         }
                 )
         compositeSubscription.add(disposable)
+
+        val dao = SettlementDAO()
+        try {
+            val settlementAmount = dao.updateStatus(transNo, "VOID")
+            receiptProduct.put("SETTLEMENT_AMOUNT", settlementAmount.toInt())
+
+            val method = Integer.valueOf(transNo.substring(transNo.length - 1))
+            val voidReceipt = VoidReceipt(transNo, receiptProduct, method, null)
+            printer.setReceipt(voidReceipt)
+            printer.print()
+        } catch (e: SettlementDAO.SettlementNotFoundException) {
+            showToast("Nomor Transaksi tidak ditemukan")
+        } catch (e: SettlementDAO.SettlementAlreadyVoidException) {
+            showToast("Transaksi sudah dibatalkan sebelumnya")
+        }
     }
 
     private fun resetErrorAndFlags() {
