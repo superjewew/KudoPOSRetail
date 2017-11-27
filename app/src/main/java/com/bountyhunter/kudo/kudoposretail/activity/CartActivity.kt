@@ -1,5 +1,6 @@
 package com.bountyhunter.kudo.kudoposretail.activity
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -22,6 +23,8 @@ import kotlin.properties.Delegates
 
 
 class CartActivity : AppCompatActivity() {
+
+    val PAYMENT_REQUEST = 0
 
     private var realm: Realm by Delegates.notNull()
 
@@ -59,6 +62,14 @@ class CartActivity : AppCompatActivity() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(requestCode == PAYMENT_REQUEST) {
+            if(resultCode == Activity.RESULT_OK) {
+                finish()
+            }
+        }
+    }
+
     private var callback = OrderedRealmCollectionChangeListener {
         _: RealmResults<CartItem>, changeSet: OrderedCollectionChangeSet? ->
         if (changeSet == null) {
@@ -81,7 +92,7 @@ class CartActivity : AppCompatActivity() {
     fun goToCheckout() {
         Snackbar.make(layout_commission_total,"checkout",Snackbar.LENGTH_SHORT).show()
         var builder = SelectPaymentActivity_.intent(this)
-        builder.start()
+        builder.startForResult(PAYMENT_REQUEST)
     }
 
     fun deleteItemFromCart(item : CartItem) {
@@ -128,15 +139,7 @@ class CartActivity : AppCompatActivity() {
         private val INTENT_PRODUCT_COMMISSION = "product_commission"
         private val INTENT_PRODUCT_PRICE = "product_price"
 
-        fun newIntent(context: Context, productCatalog: ProductCatalog): Intent {
-            val intent = Intent(context, CartActivity::class.java)
-            intent.putExtra(INTENT_PRODUCT_ID,productCatalog.id)
-            intent.putExtra(INTENT_PRODUCT_IMAGE,productCatalog.image)
-            intent.putExtra(INTENT_PRODUCT_NAME, productCatalog.name)
-            intent.putExtra(INTENT_PRODUCT_DESCRIPTION, productCatalog.description)
-            intent.putExtra(INTENT_PRODUCT_COMMISSION, productCatalog.commission)
-            intent.putExtra(INTENT_PRODUCT_PRICE, productCatalog.price)
-            return intent
-        }
+        fun newIntent(context: Context): Intent = Intent(context, CartActivity::class.java)
+
     }
 }
