@@ -47,6 +47,6 @@ data class TransactionRequest (
 )
 
 data class Transaction (
-        val id: Int = 5,
+        val id: Long = 5,
         val qty: Int = 13
 )
