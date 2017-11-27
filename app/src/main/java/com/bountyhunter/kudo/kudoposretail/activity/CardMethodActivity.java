@@ -1,5 +1,6 @@
 package com.bountyhunter.kudo.kudoposretail.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,6 +13,7 @@ import com.bountyhunter.kudo.kudoposretail.event.CardDetectedSuccessEvent;
 import com.bountyhunter.kudo.kudoposretail.paymentmethod.CardPaymentMethod;
 
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OnActivityResult;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -26,6 +28,8 @@ import wangpos.sdk4.libbasebinder.BankCard;
 
 @EActivity(R.layout.activity_card_method)
 public class CardMethodActivity extends AppCompatActivity {
+
+    public static final int PIN_REQUEST = 0;
 
     private Wangpos mWangpos;
     private CardPaymentMethod mMethod;
@@ -90,15 +94,24 @@ public class CardMethodActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
-        mMethod.stopListening();
+        if(mMethod != null) {
+            mMethod.stopListening();
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onCardDetectedSuccessEvent(CardDetectedSuccessEvent event) {
         PinActivity_.IntentBuilder_ builder = PinActivity_.intent(this)
                 .mCard(Parcels.wrap(event.getCard()));
-        builder.start();
-        this.finish();
+        builder.startForResult(PIN_REQUEST);
+    }
+
+    @OnActivityResult(PIN_REQUEST)
+    void onResult(int resultCode, Intent data) {
+        if(resultCode == RESULT_OK) {
+            setResult(RESULT_OK);
+            this.finish();
+        }
     }
 
     private HashMap<String, Integer> generateDummyData() {

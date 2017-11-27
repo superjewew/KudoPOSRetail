@@ -2,6 +2,7 @@ package com.bountyhunter.kudo.kudoposretail.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Message;
@@ -12,30 +13,45 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bountyhunter.kudo.kudoposretail.Card;
 import com.bountyhunter.kudo.kudoposretail.MposPrinter;
 import com.bountyhunter.kudo.kudoposretail.R;
+import com.bountyhunter.kudo.kudoposretail.api.LoginResponse;
+import com.bountyhunter.kudo.kudoposretail.api.Transaction;
+import com.bountyhunter.kudo.kudoposretail.api.TransactionRequest;
+import com.bountyhunter.kudo.kudoposretail.model.CartItem;
 import com.bountyhunter.kudo.kudoposretail.receipt.Receipt;
 import com.bountyhunter.kudo.kudoposretail.Wangpos;
+import com.bountyhunter.kudo.kudoposretail.rxjava.TransactionManager;
 
 import org.androidannotations.annotations.AfterExtras;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
+import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.ViewById;
 import org.parceler.Parcels;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import wangpos.sdk4.base.ICallbackListener;
 import wangpos.sdk4.libbasebinder.Core;
 
+import static com.bountyhunter.kudo.kudoposretail.receipt.Receipt.METHOD_CARD;
+import static com.bountyhunter.kudo.kudoposretail.util.TransactionUtil.generateTransNo;
+
 @EActivity(R.layout.activity_pin)
 public class PinActivity extends AppCompatActivity {
+
+    public static final int PROCESS_REQUEST = 0;
 
     public static final String EXTRA_CARD = "card";
     public static final String TAG = "PIN_ACTIVITY";
@@ -75,6 +91,12 @@ public class PinActivity extends AppCompatActivity {
 
     @Extra
     Parcelable mCard;
+    private Realm mRealm;
+    private String transNo;
+    private int mTotalPrice;
+    private ArrayList<Transaction> transactions = new ArrayList<>();
+    private HashMap<String, Integer> products = new HashMap<>();
+    private Card mCardInstance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +105,16 @@ public class PinActivity extends AppCompatActivity {
         Wangpos wangpos = Wangpos.getInstance(this);
         mContext = this;
         mHandler = new EventHandler();
+        mRealm = Realm.getDefaultInstance();
+
+        RealmResults<CartItem> results = mRealm.where(CartItem.class).findAll();
+//
+        for(CartItem item : results) {
+            mTotalPrice += item.getMItemQuantity() * item.getMItemQuantity();
+            products.put(item.getMItemName(), (int) (item.getMItemPrice() * item.getMItemQuantity()));
+            Transaction transaction = new Transaction(item.getMItemId(), item.getMItemQuantity());
+            transactions.add(transaction);
+        }
 
         Subscriber<Core> subscriber = new Subscriber<Core>() {
             @Override
@@ -121,19 +153,7 @@ public class PinActivity extends AppCompatActivity {
 
     @AfterExtras
     void setupDataToBePrinted() {
-        HashMap<String, Integer> products = new HashMap<>();
-        products.put("Minyak", 52000);
-        products.put("Mie", 12000);
-
-        Card card = Parcels.unwrap(mCard);
-        Receipt receipt = new Receipt(products, Receipt.METHOD_CARD, card);
-
-        setupPrinter(receipt);
-    }
-
-    private void setupPrinter(Receipt receipt) {
-        mPrinter = MposPrinter.getInstance(this, receipt);
-        mPrinter.setReceipt(receipt);
+        mCardInstance = Parcels.unwrap(mCard);
     }
 
     private ICallbackListener callback = new ICallbackListener.Stub() {
@@ -252,9 +272,8 @@ public class PinActivity extends AppCompatActivity {
                             } catch (UnsupportedEncodingException e) {
                                 e.printStackTrace();
                             }
-                            printReceipt();
-                            goToTransSuccess();
-//                            ((TextView) findViewById(R.id.textView)).setText(new String(PINData));
+//                            printReceipt();
+                            goToProcessTransaction();
                             return;
                         }
                         b = data[2];
@@ -269,9 +288,8 @@ public class PinActivity extends AppCompatActivity {
                             } catch (UnsupportedEncodingException e) {
                                 e.printStackTrace();
                             }
-                            printReceipt();
-                            goToTransSuccess();
-//                            ((TextView) findViewById(R.id.textView)).setText(new String(PINData));
+//                            printReceipt();
+                            goToProcessTransaction();
                             return;
                         }
                         return;
@@ -343,13 +361,17 @@ public class PinActivity extends AppCompatActivity {
         }
     }
 
-    private void printReceipt() {
-        mPrinter.print();
-
+    private void goToProcessTransaction() {
+        Intent intent = ProcessTransactionActivity.Companion.newIntent(this, mCardInstance, METHOD_CARD);
+        startActivityForResult(intent, PROCESS_REQUEST);
     }
 
-    private void goToTransSuccess() {
-
+    @OnActivityResult(PROCESS_REQUEST)
+    void onResult(int resultCode, Intent data) {
+        if(resultCode == RESULT_OK) {
+            setResult(RESULT_OK);
+            this.finish();
+        }
     }
 
     private void RestoreKeyPad() {
