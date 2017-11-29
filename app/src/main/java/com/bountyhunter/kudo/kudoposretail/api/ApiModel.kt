@@ -23,13 +23,13 @@ data class DataResponse(
 )
 
 data class ProductCatalog(
-        val id: Long = 0,
-        val name: String = "No Name",
-        val description: String = "Desciprtion",
-        val price: Double = 0.0,
-        val stock: Int = 0,
-        val commission: Double = 0.0,
-        val image: String = "No Image")
+        var id: Long = 0,
+        var name: String = "No Name",
+        var description: String = "Desciprtion",
+        var price: Double = 0.0,
+        var stock: Int = 0,
+        var commission: Double = 0.0,
+        var image: String = "No Image")
 
 class VoidRequest (
         @SerializedName("id") val transNumber: String
