@@ -4,18 +4,17 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
+import android.widget.Toast
 import com.bountyhunter.kudo.kudoposretail.R
 import com.bountyhunter.kudo.kudoposretail.model.CartItem
 import com.bountyhunter.kudo.kudoposretail.ui.CartItemAdapter
 import com.bountyhunter.kudo.kudoposretail.util.NumberUtils
-import io.realm.OrderedCollectionChangeSet
-import io.realm.OrderedRealmCollectionChangeListener
 import io.realm.Realm
+import io.realm.RealmChangeListener
 import io.realm.RealmResults
 import kotlinx.android.synthetic.main.activity_cart.*
 import kotlin.properties.Delegates
@@ -39,7 +38,11 @@ class CartActivity : AppCompatActivity() {
         realm = Realm.getDefaultInstance()
 
         shopping_cart_btn_checkout.setOnClickListener {
-            goToCheckout()
+            if(items.size != 0) {
+                goToCheckout()
+            } else {
+                Toast.makeText(this, "Keranjang belanja kosong", Toast.LENGTH_SHORT).show()
+            }
         }
 
         fab_camera.setOnClickListener { view ->
@@ -54,8 +57,6 @@ class CartActivity : AppCompatActivity() {
         val realm = Realm.getDefaultInstance()
         items = realm.where(CartItem::class.java).findAllAsync()
         items.addChangeListener(callback)
-        initAdapter(items)
-        updateTotalPrice()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
@@ -75,13 +76,9 @@ class CartActivity : AppCompatActivity() {
         }
     }
 
-    private var callback = OrderedRealmCollectionChangeListener {
-        _: RealmResults<CartItem>, changeSet: OrderedCollectionChangeSet? ->
-        if (changeSet == null) {
-                // The first time async returns with an null changeSet.
-            } else {
-                // Called on every update.
-            }
+    private var callback = RealmChangeListener<RealmResults<CartItem>> { element ->
+        initAdapter(element)
+        updateTotalPrice()
     }
 
     fun initAdapter(cartItems: RealmResults<CartItem>) {
@@ -95,7 +92,6 @@ class CartActivity : AppCompatActivity() {
     }
 
     fun goToCheckout() {
-        Snackbar.make(layout_commission_total,"checkout",Snackbar.LENGTH_SHORT).show()
         var builder = SelectPaymentActivity_.intent(this)
         builder.startForResult(PAYMENT_REQUEST)
     }
