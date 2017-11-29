@@ -24,8 +24,8 @@ class SettlementDAO {
     }
 
     fun deleteAll() {
-        var results = mRealm.where(Settlement::class.java).findAll()
-        results.deleteAllFromRealm()
+        val results = mRealm.where(Settlement::class.java).findAll()
+        mRealm.executeTransaction { results.deleteAllFromRealm() }
     }
 
     fun updateStatus(transNo: String, status: String): Double {
