@@ -10,7 +10,6 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
 import com.bountyhunter.kudo.kudoposretail.R
-import com.bountyhunter.kudo.kudoposretail.api.ProductCatalog
 import com.bountyhunter.kudo.kudoposretail.model.CartItem
 import com.bountyhunter.kudo.kudoposretail.ui.CartItemAdapter
 import com.bountyhunter.kudo.kudoposretail.util.NumberUtils
@@ -39,27 +38,33 @@ class CartActivity : AppCompatActivity() {
 
         realm = Realm.getDefaultInstance()
 
+        shopping_cart_btn_checkout.setOnClickListener {
+            goToCheckout()
+        }
+
+        fab_camera.setOnClickListener { view ->
+            val intent = ScannerActivity.newIntent(this)
+            startActivity(intent)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
         val realm = Realm.getDefaultInstance()
         items = realm.where(CartItem::class.java).findAllAsync()
         items.addChangeListener(callback)
         initAdapter(items)
         updateTotalPrice()
-
-        shopping_cart_btn_checkout.setOnClickListener {
-            goToCheckout()
-        }
-
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.getItemId()) {
-            android.R.id.home -> {
-                // app icon in action bar clicked; goto parent activity.
-                this.finish()
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        android.R.id.home -> {
+            // app icon in action bar clicked; goto parent activity.
+            this.finish()
+            true
         }
+        else -> super.onOptionsItemSelected(item)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -131,13 +136,6 @@ class CartActivity : AppCompatActivity() {
     }
 
     companion object {
-
-        private val INTENT_PRODUCT_ID = "product_id"
-        private val INTENT_PRODUCT_NAME = "product_name"
-        private val INTENT_PRODUCT_IMAGE = "product_image"
-        private val INTENT_PRODUCT_DESCRIPTION = "product_description"
-        private val INTENT_PRODUCT_COMMISSION = "product_commission"
-        private val INTENT_PRODUCT_PRICE = "product_price"
 
         fun newIntent(context: Context): Intent = Intent(context, CartActivity::class.java)
 

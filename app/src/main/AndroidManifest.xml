@@ -3,6 +3,7 @@
     package="com.bountyhunter.kudo.kudoposretail">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".PosApplication"
@@ -49,12 +50,18 @@
             android:name=".activity.VoidActivity"
             android:label="Pembatalan Transaksi"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activity.ProcessTransactionActivity"
+        <activity
+            android:name=".activity.ProcessTransactionActivity"
             android:label="Proses Transaksi"
-            android:theme="@style/AppTheme"/>
-        <activity android:name=".activity.SettlementActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.SettlementActivity"
             android:label="Settlement"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.ScannerActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

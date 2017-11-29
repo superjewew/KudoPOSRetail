@@ -62,5 +62,7 @@ dependencies {
 
     implementation 'com.airbnb.android:lottie:2.2.5'
 
+    implementation 'me.dm7.barcodescanner:zbar:1.9.8'
+
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 }
