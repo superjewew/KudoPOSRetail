@@ -26,6 +26,7 @@ class CatalogLocalDataSource(val context: Context): CatalogDataSource {
                     item.commission = product.commission
                     item.image = product.image
                     item.stock = product.stock
+                    item.barcode = product.barcode
                 }
             }
         }

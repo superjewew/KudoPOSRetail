@@ -13,4 +13,5 @@ open class Product: RealmObject() {
     var stock: Int = 0
     var commission: Double = 0.0
     var image: String = "No Image"
+    var barcode: String = ""
 }

@@ -29,7 +29,9 @@ data class ProductCatalog(
         var price: Double = 0.0,
         var stock: Int = 0,
         var commission: Double = 0.0,
-        var image: String = "No Image")
+        var image: String = "No Image") {
+        var barcode: String = "111111111"
+}
 
 class VoidRequest (
         @SerializedName("id") val transNumber: String
