@@ -17,6 +17,7 @@ import io.realm.Realm
 import io.realm.RealmChangeListener
 import io.realm.RealmResults
 import kotlinx.android.synthetic.main.activity_cart.*
+import org.jetbrains.anko.toast
 import kotlin.properties.Delegates
 
 
@@ -38,11 +39,14 @@ class CartActivity : AppCompatActivity() {
         realm = Realm.getDefaultInstance()
 
         shopping_cart_btn_checkout.setOnClickListener {
-            if(items.size != 0) {
-                goToCheckout()
-            } else {
-                Toast.makeText(this, "Keranjang belanja kosong", Toast.LENGTH_SHORT).show()
+            when {
+                items.size != 0 -> goToCheckout()
+                else -> toast("Keranjang belanja kosong")
             }
+        }
+
+        shopping_cart_btn_continue_shopping.setOnClickListener {
+            finish()
         }
 
         fab_camera.setOnClickListener { view ->
