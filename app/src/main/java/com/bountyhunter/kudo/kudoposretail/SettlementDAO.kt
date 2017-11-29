@@ -32,7 +32,7 @@ class SettlementDAO {
         var settlementAmount = 0.0
 
         Realm.getDefaultInstance().use {
-            val result = it.where(Settlement::class.java).beginsWith("transId", transNo).findFirst() ?: throw SettlementNotFoundException()
+            val result = it.where(Settlement::class.java).equalTo("transId", transNo).findFirst() ?: throw SettlementNotFoundException()
             if(result.status == STATUS_VOID) throw SettlementAlreadyVoidException()
             it.executeTransaction {
                 result.status = status

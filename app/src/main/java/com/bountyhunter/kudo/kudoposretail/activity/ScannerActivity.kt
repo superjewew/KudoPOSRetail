@@ -9,6 +9,7 @@ import com.bountyhunter.kudo.kudoposretail.CatalogLocalDataSource
 import com.bountyhunter.kudo.kudoposretail.CatalogRemoteDataSource
 import com.bountyhunter.kudo.kudoposretail.CatalogRepository
 import com.bountyhunter.kudo.kudoposretail.model.CartItem
+import com.bountyhunter.kudo.kudoposretail.model.Product
 import io.realm.Realm
 import me.dm7.barcodescanner.zbar.Result
 import me.dm7.barcodescanner.zbar.ZBarScannerView
@@ -52,38 +53,50 @@ class ScannerActivity : AppCompatActivity(), ZBarScannerView.ResultHandler {
         // If you would like to resume scanning, call this method below:
 //        mScannerView.resumeCameraPreview(this)
 
-        var disposable = catalogRepo.getProduct(rawResult?.contents!!.toLong())
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.computation())
-                .subscribe(
-                        { data ->
-                            Realm.getDefaultInstance().use {
-                                it.executeTransaction {
-                                    val item = it.createObject(CartItem::class.java)
-                                    item.fromProduct(data)
-                                }
-                            }
-                        },
-                        {
+        Realm.getDefaultInstance().use {
+            it.executeTransaction {
+                val result = it.where(Product::class.java).equalTo("barcode", rawResult?.contents).findFirst()
+                val item = it.createObject(CartItem::class.java)
+                item.fromProduct(result!!)
+                Log.d("SCANNER", result?.name + " " + result?.barcode)
+                finish()
+            }
+        }
 
-                        },
-                        {
-                            finish()
-                        })
+//        var disposable = catalogRepo.getProduct(rawResult?.contents!!.toLong())
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(Schedulers.computation())
+//                .subscribe(
+//                        { data ->
+//                            Realm.getDefaultInstance().use {
+//                                it.executeTransaction {
+//                                    val item = it.createObject(CartItem::class.java)
+//                                    item.fromProduct(data)
 
-//        Realm.getDefaultInstance().use {
-//            it.executeTransaction {
-//                val item = it.createObject(CartItem::class.java)
-//                item.mItemId = 1001
-//                item.mItemName = "Test Product"
-//                item.mItemPrice = 100000.0
-//                item.mItemQuantity = 1
-//                item.mItemImage = "https://img2.exportersindia.com/product_images/bc-full/dir_22/653236/detol-hand-wash-1833868.jpeg"
-//                item.mItemStock = 10
-//            }
-//        }
+                                    //        Realm.getDefaultInstance().use {
+                                    //            it.executeTransaction {
+                                    //                val item = it.createObject(CartItem::class.java)
+                                    //                item.mItemId = 1001
+                                    //                item.mItemName = "Test Product"
+                                    //                item.mItemPrice = 100000.0
+                                    //                item.mItemQuantity = 1
+                                    //                item.mItemImage = "https://img2.exportersindia.com/product_images/bc-full/dir_22/653236/detol-hand-wash-1833868.jpeg"
+                                    //                item.mItemStock = 10
+                                    //            }
+                                    //        }
+//                                }
+//                            }
+//                        },
+//                        {
+//                            e -> error("Error on finding product, " + e.localizedMessage)
+//                        },
+//                        {
+//                            finish()
+//                        })
 
-        compositeSubscription.add(disposable)
+
+
+//        compositeSubscription.add(disposable)
 
     }
 

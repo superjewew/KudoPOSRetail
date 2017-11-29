@@ -98,7 +98,7 @@ class ProcessTransactionActivity : AppCompatActivity() {
             }
         }
 
-        val request = TransactionRequest(1, paymentMethod, generateTransNo(method), transactions)
+        val request = TransactionRequest(1, paymentMethod, transNo, transactions)
 
         transactionManager.submitTransaction(request)
                 .subscribeOn(Schedulers.io())
