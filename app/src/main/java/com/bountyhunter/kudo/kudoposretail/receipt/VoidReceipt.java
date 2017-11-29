@@ -42,7 +42,7 @@ public class VoidReceipt extends BaseReceipt {
     }
 
     @Override
-    void generateItems(HashMap<String, Integer> productMap) {
+    protected void generateItems(HashMap<String, Integer> productMap) {
         // Do not print items for void receipt
     }
 }
