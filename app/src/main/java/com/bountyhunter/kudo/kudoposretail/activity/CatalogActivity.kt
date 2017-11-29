@@ -11,6 +11,9 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.bountyhunter.kudo.kudoposretail.CatalogLocalDataSource
+import com.bountyhunter.kudo.kudoposretail.CatalogRemoteDataSource
+import com.bountyhunter.kudo.kudoposretail.CatalogRepository
 import com.bountyhunter.kudo.kudoposretail.R
 import com.bountyhunter.kudo.kudoposretail.api.ProductCatalog
 import com.bountyhunter.kudo.kudoposretail.model.CartItem
@@ -36,6 +39,10 @@ class CatalogActivity : AppCompatActivity() {
 
     private val catalogManager by lazy {
         CatalogManager()
+    }
+
+    private val catalogRepo by lazy {
+        CatalogRepository(CatalogLocalDataSource(this), CatalogRemoteDataSource())
     }
 
     override fun onPause() {
@@ -114,7 +121,21 @@ class CatalogActivity : AppCompatActivity() {
                             e -> Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
                         }
                 )
-        compositeSubcribtion.add(disposable)
+
+        val disposableRealm = catalogRepo.getProducts()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {
+                            data -> initAdapter(data)
+                            catalogRepo.saveToLocalDb(data)
+                        },
+                        {
+                            e -> Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                        }
+                )
+
+        compositeSubcribtion.add(disposableRealm)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
