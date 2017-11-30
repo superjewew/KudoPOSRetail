@@ -151,6 +151,11 @@ class CatalogActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun goToHistory() {
+        val intent = TransactionListActivity.newIntent(this)
+        startActivity(intent)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main, menu)
         return super.onCreateOptionsMenu(menu)
@@ -161,6 +166,7 @@ class CatalogActivity : AppCompatActivity() {
             R.id.menu_void -> goToVoid()
             R.id.menu_settlement -> goToSettlement()
             R.id.menu_cart -> goToCart()
+            R.id.menu_history -> goToHistory()
         }
         return super.onOptionsItemSelected(item)
     }

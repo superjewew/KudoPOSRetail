@@ -25,5 +25,6 @@
     <string name="clear">Hapus</string>
     <string name="settlement">Settlement</string>
     <string name="menu_void">Batalkan Transaksi</string>
+    <string name="menu_history">Rekam Transaksi</string>
     <string name="action_cart">Keranjang</string>
 </resources>

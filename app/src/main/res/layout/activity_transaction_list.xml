@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.bountyhunter.kudo.kudoposretail.activity.TransactionListActivity">
+
+    <FrameLayout
+        android:id="@+id/fl_history_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <include
+            android:id="@+id/ll_history_action"
+            layout="@layout/frame_history_header" />
+
+    </FrameLayout>
+    <ImageView
+        android:id="@+id/commission_history_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_padding_extra_very_small"
+        android:layout_below="@+id/fl_history_action"
+        android:src="@drawable/drop_shadow"
+        />
+
+    <include
+        layout="@layout/list_item_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/commission_history_shadow"/>
+
+</RelativeLayout>
