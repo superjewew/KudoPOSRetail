@@ -20,6 +20,7 @@ public class Receipt extends BaseReceipt {
 
     public Receipt(String transNo, HashMap<String, Integer> products, int method, Card card) {
         super(transNo, products, method, card);
+        generateContents();
     }
 
     public List<ReceiptString> getContents() {

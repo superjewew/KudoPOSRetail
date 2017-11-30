@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.MenuItem
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.Toast
 import com.bountyhunter.kudo.kudoposretail.MposPrinter
 import com.bountyhunter.kudo.kudoposretail.R
@@ -62,6 +64,8 @@ class VoidActivity : AppCompatActivity() {
 
     private fun attemptVoid() {
         void_button.isEnabled = false
+        void_button.visibility = GONE
+        void_progress.visibility = VISIBLE
 
         resetErrorAndFlags()
 
@@ -87,6 +91,8 @@ class VoidActivity : AppCompatActivity() {
                         },
                         {
                             void_button.isEnabled = true
+                            void_button.visibility = VISIBLE
+                            void_progress.visibility = GONE
                         }
                 )
         compositeSubscription.add(disposable)

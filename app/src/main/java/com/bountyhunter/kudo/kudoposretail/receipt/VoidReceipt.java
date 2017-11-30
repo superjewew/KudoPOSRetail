@@ -17,6 +17,7 @@ public class VoidReceipt extends BaseReceipt {
 
     public VoidReceipt(String transNo, HashMap<String, Integer> products, int method, Card card) {
         super(transNo, products, method, card);
+        generateContents();
     }
 
     @Override

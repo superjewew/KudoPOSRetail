@@ -30,23 +30,21 @@ public abstract class BaseReceipt {
 
     private String mTransNo;
 
+    private HashMap<String, Integer> mProducts;
+
+    private int mMethod;
+
     public BaseReceipt(String transNo, HashMap<String, Integer> products, int method, Card card) {
         mTransNo = transNo;
+        mProducts = products;
+        mMethod = method;
+
         setCard(card);
+    }
 
-        generateHeader();
-        generatePaymentMethod(method);
-        generateTimeAndDate();
-
-        generateItems(products);
-        generatePurchaseType();
-
-        generateTotalPrice(products);
-
-        generateFooter();
-
-        for (ReceiptString string: mContents) {
-            Log.d("RECEIPT", string.getContent());
+    public void setCard(Card card) {
+        if(card != null) {
+            mCard = card;
         }
     }
 
@@ -54,9 +52,20 @@ public abstract class BaseReceipt {
 
     abstract void generatePurchaseType();
 
-    public void setCard(Card card) {
-        if(card != null) {
-            mCard = card;
+    public void generateContents() {
+        generateHeader();
+        generatePaymentMethod(mMethod);
+        generateTimeAndDate();
+
+        generateItems(mProducts);
+        generatePurchaseType();
+
+        generateTotalPrice(mProducts);
+
+        generateFooter();
+
+        for (ReceiptString string: mContents) {
+            Log.d("RECEIPT", string.getContent());
         }
     }
 

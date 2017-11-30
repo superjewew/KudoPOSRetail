@@ -25,6 +25,7 @@ public class SettlementReceipt extends BaseReceipt {
 
     public SettlementReceipt(HashMap<String, Integer> settlements) {
         super(null, settlements, SETTLEMENT, null);
+        generateContents();
     }
 
     @Override
