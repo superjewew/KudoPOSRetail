@@ -27,7 +27,8 @@
         <activity
             android:name=".activity.CatalogActivity"
             android:label="Products Catalog"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.CartActivity"
             android:label="Cart"
