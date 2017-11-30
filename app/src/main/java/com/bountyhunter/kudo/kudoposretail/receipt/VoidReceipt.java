@@ -15,8 +15,9 @@ import wangpos.sdk4.libbasebinder.Printer;
 
 public class VoidReceipt extends BaseReceipt {
 
-    public VoidReceipt(HashMap<String, Integer> products, int method, Card card) {
-        super(products, method, card);
+    public VoidReceipt(String transNo, HashMap<String, Integer> products, int method, Card card) {
+        super(transNo, products, method, card);
+        generateContents();
     }
 
     @Override
@@ -39,5 +40,10 @@ public class VoidReceipt extends BaseReceipt {
         header.add(new ReceiptString(" ", 30, Printer.Align.CENTER, false, false));
 
         mContents.addAll(header);
+    }
+
+    @Override
+    protected void generateItems(HashMap<String, Integer> productMap) {
+        // Do not print items for void receipt
     }
 }

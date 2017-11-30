@@ -3,6 +3,9 @@
     package="com.bountyhunter.kudo.kudoposretail">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
 
     <application
         android:name=".PosApplication"
@@ -24,26 +27,48 @@
         <activity
             android:name=".activity.CatalogActivity"
             android:label="Products Catalog"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.CartActivity"
             android:label="Cart"
-            android:theme="@style/AppTheme"/>
-        <activity android:name=".activity.SelectPaymentActivity_"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.SelectPaymentActivity_"
             android:label="Pilih Metode"
-            android:theme="@style/AppTheme"/>
-        <activity android:name=".activity.CardMethodActivity_"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.CardMethodActivity_"
             android:label="Kartu"
-            android:theme="@style/AppTheme"/>
-        <activity android:name=".activity.EwalletMethodActivity_"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.EwalletMethodActivity_"
             android:label="E-Wallet"
-            android:theme="@style/AppTheme"/>
-        <activity android:name=".activity.PinActivity_"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.PinActivity_"
             android:label="PIN"
-            android:theme="@style/AppTheme"/>
-        <activity android:name=".activity.VoidActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.VoidActivity"
             android:label="Pembatalan Transaksi"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.ProcessTransactionActivity"
+            android:label="Proses Transaksi"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.SettlementActivity"
+            android:label="Settlement"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.ScannerActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.TransactionListActivity"
+            android:label="Rekam Transaksi"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

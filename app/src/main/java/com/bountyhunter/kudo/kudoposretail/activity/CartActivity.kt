@@ -1,31 +1,34 @@
 package com.bountyhunter.kudo.kudoposretail.activity
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
+import com.bountyhunter.kudo.kudoposretail.CartDAO
 import com.bountyhunter.kudo.kudoposretail.R
-import com.bountyhunter.kudo.kudoposretail.api.ProductCatalog
 import com.bountyhunter.kudo.kudoposretail.model.CartItem
 import com.bountyhunter.kudo.kudoposretail.ui.CartItemAdapter
 import com.bountyhunter.kudo.kudoposretail.util.NumberUtils
-import io.realm.OrderedCollectionChangeSet
-import io.realm.OrderedRealmCollectionChangeListener
 import io.realm.Realm
 import io.realm.RealmResults
 import kotlinx.android.synthetic.main.activity_cart.*
+import org.jetbrains.anko.toast
 import kotlin.properties.Delegates
 
 
 class CartActivity : AppCompatActivity() {
 
+    private val paymentRequestCode = 0
+
     private var realm: Realm by Delegates.notNull()
 
     private lateinit var items : RealmResults<CartItem>
+
+    private val dao = CartDAO()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,39 +39,49 @@ class CartActivity : AppCompatActivity() {
 
         realm = Realm.getDefaultInstance()
 
-        val realm = Realm.getDefaultInstance()
-        items = realm.where(CartItem::class.java).findAllAsync()
-        items.addChangeListener(callback)
+        shopping_cart_btn_checkout.setOnClickListener {
+            when {
+                items.size == 0 -> toast("Keranjang belanja kosong")
+                else -> goToCheckout()
+            }
+        }
+
+        shopping_cart_btn_continue_shopping.setOnClickListener {
+            finish()
+        }
+
+        fab_camera.setOnClickListener {
+            val intent = ScannerActivity.newIntent(this)
+            startActivity(intent)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        items = dao.getAll()!!
         initAdapter(items)
         updateTotalPrice()
+    }
 
-        shopping_cart_btn_checkout.setOnClickListener {
-            goToCheckout()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        android.R.id.home -> {
+            // app icon in action bar clicked; goto parent activity.
+            this.finish()
+            true
         }
-
+        else -> super.onOptionsItemSelected(item)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.getItemId()) {
-            android.R.id.home -> {
-                // app icon in action bar clicked; goto parent activity.
-                this.finish()
-                return true
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(requestCode == paymentRequestCode) {
+            if(resultCode == Activity.RESULT_OK) {
+                finish()
             }
-            else -> return super.onOptionsItemSelected(item)
         }
     }
 
-    private var callback = OrderedRealmCollectionChangeListener {
-        _: RealmResults<CartItem>, changeSet: OrderedCollectionChangeSet? ->
-        if (changeSet == null) {
-                // The first time async returns with an null changeSet.
-            } else {
-                // Called on every update.
-            }
-    }
-
-    fun initAdapter(cartItems: RealmResults<CartItem>) {
+    private fun initAdapter(cartItems: RealmResults<CartItem>) {
         rv_cart.layoutManager = LinearLayoutManager(this)
         rv_cart.setHasFixedSize(true)
         rv_cart.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
@@ -78,65 +91,37 @@ class CartActivity : AppCompatActivity() {
                 { item -> reduceItemAmount(item) })
     }
 
-    fun goToCheckout() {
-        Snackbar.make(layout_commission_total,"checkout",Snackbar.LENGTH_SHORT).show()
-        var builder = SelectPaymentActivity_.intent(this)
-        builder.start()
+    private fun goToCheckout() {
+        val builder = SelectPaymentActivity_.intent(this)
+        builder.startForResult(paymentRequestCode)
     }
 
-    fun deleteItemFromCart(item : CartItem) {
-        realm.executeTransaction {
-            item.deleteFromRealm()
+    private fun deleteItemFromCart(item : CartItem) {
+        dao.deleteItem(item)
+        updateTotalPrice()
+    }
+
+    private fun addItemAmount(item : CartItem) {
+        dao.addQuantity(item)
+        updateTotalPrice()
+    }
+
+    private fun reduceItemAmount(item: CartItem) {
+        if(item.mItemQuantity > 0) {
+            dao.reduceQuantity(item)
             updateTotalPrice()
         }
     }
 
-    fun addItemAmount(item : CartItem) {
-        realm.executeTransaction {
-            item.mItemQuantity++
-            updateTotalPrice()
-        }
-    }
-
-    fun reduceItemAmount(item: CartItem) {
-        realm.executeTransaction {
-            if(item.mItemQuantity > 0) {
-                item.mItemQuantity--
-                updateTotalPrice()
-            }
-        }
-    }
-
-    fun updateTotalPrice() {
+    private fun updateTotalPrice() {
         shopping_cart_tv_commission_total.text = NumberUtils.formatPrice(calculateTotalPrice())
     }
 
-    fun calculateTotalPrice() : Double {
-        var total = 0.0
-        for(item in items) {
-            total += item.mItemPrice * item.mItemQuantity
-        }
-        return total
-    }
+    private fun calculateTotalPrice() : Double = items.sumByDouble { it.mItemPrice * it.mItemQuantity }
 
     companion object {
 
-        private val INTENT_PRODUCT_ID = "product_id"
-        private val INTENT_PRODUCT_NAME = "product_name"
-        private val INTENT_PRODUCT_IMAGE = "product_image"
-        private val INTENT_PRODUCT_DESCRIPTION = "product_description"
-        private val INTENT_PRODUCT_COMMISSION = "product_commission"
-        private val INTENT_PRODUCT_PRICE = "product_price"
+        fun newIntent(context: Context): Intent = Intent(context, CartActivity::class.java)
 
-        fun newIntent(context: Context, productCatalog: ProductCatalog): Intent {
-            val intent = Intent(context, CartActivity::class.java)
-            intent.putExtra(INTENT_PRODUCT_ID,productCatalog.id)
-            intent.putExtra(INTENT_PRODUCT_IMAGE,productCatalog.image)
-            intent.putExtra(INTENT_PRODUCT_NAME, productCatalog.name)
-            intent.putExtra(INTENT_PRODUCT_DESCRIPTION, productCatalog.description)
-            intent.putExtra(INTENT_PRODUCT_COMMISSION, productCatalog.commission)
-            intent.putExtra(INTENT_PRODUCT_PRICE, productCatalog.price)
-            return intent
-        }
     }
 }

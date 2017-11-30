@@ -22,30 +22,25 @@ public abstract class BaseReceipt {
     public static final int METHOD_EWALLET = 0;
     public static final int METHOD_CARD = 1;
     public static final int METHOD_CASH = 2;
+    public static final int SETTLEMENT = 3;
 
     List<ReceiptString> mContents = new ArrayList<>();
 
     private Card mCard = new Card("", "");
 
-    public BaseReceipt(HashMap<String, Integer> products, int method, Card card) {
+    private String mTransNo;
+
+    private HashMap<String, Integer> mProducts;
+
+    private int mMethod;
+
+    public BaseReceipt(String transNo, HashMap<String, Integer> products, int method, Card card) {
+        mTransNo = transNo;
+        mProducts = products;
+        mMethod = method;
+
         setCard(card);
-        generateHeader();
-        generatePaymentMethod(method);
-        generateTimeAndDate();
-
-        generateItems(products);
-        generatePurchaseType();
-
-        generateTotalPrice(products);
-
-        generateFooter();
-
-        for (ReceiptString string: mContents) {
-            Log.d("RECEIPT", string.getContent());
-        }
     }
-
-    abstract void generatePurchaseType();
 
     public void setCard(Card card) {
         if(card != null) {
@@ -55,6 +50,29 @@ public abstract class BaseReceipt {
 
     abstract void generateHeader();
 
+    abstract void generatePurchaseType();
+
+    public void generateContents() {
+        generateHeader();
+        generatePaymentMethod(mMethod);
+        generateTimeAndDate();
+
+        generateItems(mProducts);
+        generatePurchaseType();
+
+        generateTotalPrice(mProducts);
+
+        generateFooter();
+
+        for (ReceiptString string: mContents) {
+            Log.d("RECEIPT", string.getContent());
+        }
+    }
+
+    public List<ReceiptString> getContents() {
+        return mContents;
+    }
+
     private void generateTimeAndDate() {
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -62,30 +80,40 @@ public abstract class BaseReceipt {
 
         mContents.add(new ReceiptString(dateFormat.format(cal.getTime()), 24, Printer.Align.LEFT, false, false));
         mContents.add(new ReceiptString(timeFormat.format(cal.getTime()), 24, Printer.Align.LEFT, false, false));
-        mContents.add(new ReceiptString("Trace No XXXXXX", 24, Printer.Align.LEFT, false, false));
+        if(mTransNo != null) {
+            mContents.add(new ReceiptString("Trace No " + mTransNo, 24, Printer.Align.LEFT, false, false));
+        }
+        mContents.add(new ReceiptString(" ", 30, Printer.Align.LEFT, false, false));
+
     }
 
-    private void generateItems(HashMap<String, Integer> productMap) {
+    protected void generateItems(HashMap<String, Integer> productMap) {
         List<ReceiptString> products = new ArrayList<>();
 
-        for(String productName : productMap.keySet()) {
-            products.add(new ReceiptString(productName + " : " + NumberUtils.formatPrice(productMap.get(productName)), 24, Printer.Align.LEFT, false, false));
+        if(productMap != null) {
+            for (String productName : productMap.keySet()) {
+                products.add(new ReceiptString(productName + " : " + NumberUtils.formatPrice(productMap.get(productName)), 24, Printer.Align.LEFT, false, false));
+            }
+            products.add(new ReceiptString(" ", 30, Printer.Align.LEFT, false, false));
         }
-        products.add(new ReceiptString(" ", 30, Printer.Align.LEFT, false, false));
 
         mContents.addAll(products);
     }
 
-    private void generateTotalPrice(HashMap<String, Integer> productMap) {
+    protected void generateTotalPrice(HashMap<String, Integer> productMap) {
         int totalPrice = calculateTotal(productMap);
-        mContents.add(new ReceiptString("Total: " + NumberUtils.formatPrice(totalPrice), 24, Printer.Align.LEFT, false, false));
-        mContents.add(new ReceiptString(" ", 30, Printer.Align.LEFT, false, false));
+        if(totalPrice != 0) {
+            mContents.add(new ReceiptString("Total: " + NumberUtils.formatPrice(totalPrice), 24, Printer.Align.LEFT, false, false));
+            mContents.add(new ReceiptString(" ", 30, Printer.Align.LEFT, false, false));
+        }
     }
 
     private int calculateTotal(HashMap<String, Integer> productMap) {
         int total = 0;
-        for(String productName : productMap.keySet()) {
-            total += productMap.get(productName);
+        if(productMap != null) {
+            for (String productName : productMap.keySet()) {
+                total += productMap.get(productName);
+            }
         }
         return total;
     }
@@ -106,12 +134,14 @@ public abstract class BaseReceipt {
             case METHOD_CASH:
                 mContents.add(new ReceiptString("CASH", 24, Printer.Align.LEFT, false, false));
                 break;
+            case SETTLEMENT:
+                mContents.add(new ReceiptString("Transaction", 24, Printer.Align.LEFT, false, false));
+                break;
         }
     }
 
     private void generateFooter() {
-        mContents.add(new ReceiptString(" ", 30, Printer.Align.LEFT, false, false));
-        mContents.add(new ReceiptString("APPROVED", 24, Printer.Align.LEFT, true, false));
-        mContents.add(new ReceiptString("Thank You", 24, Printer.Align.LEFT, true, false));
+        mContents.add(new ReceiptString("APPROVED", 24, Printer.Align.CENTER, true, false));
+        mContents.add(new ReceiptString("Thank You", 24, Printer.Align.CENTER, true, false));
     }
 }

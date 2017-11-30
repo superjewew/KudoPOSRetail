@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/main_padding_small_14"
+    android:paddingBottom="@dimen/main_padding_small_14"
+    android:layout_marginLeft="@dimen/main_padding_small"
+    android:layout_marginRight="@dimen/main_padding_small"
+    android:layout_alignParentTop="true"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:baselineAligned="false"
+    android:background="@color/white"
+    >
+
+    <LinearLayout
+        android:id="@+id/ll_history_filter_date_menu_clickable"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/main_padding_small"
+            app:srcCompat="@drawable/ic_date_range_grey_600_24dp"/>
+
+        <TextView
+            android:id="@+id/tv_history_filter_date_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="7 HARI TERAKHIR"
+            android:textAllCaps="true"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_history_filter_state_menu_clickable"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/main_padding_small"
+            app:srcCompat="@drawable/ic_filter_list_grey_600_24dp" />
+
+        <TextView
+            android:id="@+id/tv_history_filter_state_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LIHAT SEMUA"
+            android:textAllCaps="true"
+            />
+    </LinearLayout>
+</LinearLayout>

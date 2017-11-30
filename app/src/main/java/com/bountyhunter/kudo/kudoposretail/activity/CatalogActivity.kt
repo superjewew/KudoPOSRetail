@@ -7,10 +7,12 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.bountyhunter.kudo.kudoposretail.CatalogLocalDataSource
+import com.bountyhunter.kudo.kudoposretail.CatalogRemoteDataSource
+import com.bountyhunter.kudo.kudoposretail.CatalogRepository
 import com.bountyhunter.kudo.kudoposretail.R
 import com.bountyhunter.kudo.kudoposretail.api.ProductCatalog
 import com.bountyhunter.kudo.kudoposretail.model.CartItem
@@ -18,10 +20,10 @@ import com.bountyhunter.kudo.kudoposretail.rxjava.CatalogManager
 import com.bountyhunter.kudo.kudoposretail.ui.ProductCatalogAdapter
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_catalog.*
+import org.jetbrains.anko.toast
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import rx.subscriptions.CompositeSubscription
-import kotlin.properties.Delegates
 
 
 class CatalogActivity : AppCompatActivity() {
@@ -32,10 +34,12 @@ class CatalogActivity : AppCompatActivity() {
 
     private val compositeSubcribtion : CompositeSubscription = CompositeSubscription()
 
-    private var realm: Realm by Delegates.notNull()
-
     private val catalogManager by lazy {
         CatalogManager()
+    }
+
+    private val catalogRepo by lazy {
+        CatalogRepository(CatalogLocalDataSource(this), CatalogRemoteDataSource())
     }
 
     override fun onPause() {
@@ -59,7 +63,7 @@ class CatalogActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-                if(search_tv.text.length != 0) {
+                if(search_tv.text.isNotEmpty()) {
                     val id : Int = search_tv.text.toString().toInt()
                     val disposable = catalogManager.getProductById(id)
                             .subscribeOn(Schedulers.io())
@@ -78,93 +82,41 @@ class CatalogActivity : AppCompatActivity() {
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
-        }
-        )
+        })
 
-        //rv_products_catalog.addItemDecoration(GridCatalogDecoration(12))
-
-//        var alMyProductResponse = ArrayList<ProductCatalog>()
-//
-//        alMyProductResponse.add(ProductCatalog(description = "Item 1"
-//        ,id = 1,name = "Item 1",price=12000.0,image = "123123",stock = 1))
-//
-//        alMyProductResponse.add(ProductCatalog(description = "Item 1"
-//                ,id = 1,name = "Item 1",price=12000.0,image = "123123",stock = 1))
-//        alMyProductResponse.add(ProductCatalog())
-//        alMyProductResponse.add(ProductCatalog())
-//        alMyProductResponse.add(ProductCatalog())
-//        alMyProductResponse.add(ProductCatalog())
-//        alMyProductResponse.add(ProductCatalog())
-//        alMyProductResponse.add(ProductCatalog())
-//        alMyProductResponse.add(ProductCatalog())
-//        alMyProductResponse.add(ProductCatalog())
-//
-//        rv_products_catalog.adapter = ProductCatalogAdapter(alMyProductResponse) {
-//            productResponse -> Toast.makeText(this, productResponse.name + " is clicked"
-//                ,Toast.LENGTH_SHORT).show()
-//        }
-        val disposable = catalogManager.getProducts()
+        val disposableRealm = catalogRepo.getProducts()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe (
-                        {
+                .subscribe(
+                        {   // on next
                             data -> initAdapter(data)
+                            catalogRepo.saveToLocalDb(data)
                         },
-                        {
-                            e -> Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                        {   // on error
+                            error -> toast(error.message.toString())
                         }
                 )
-        compositeSubcribtion.add(disposable)
-    }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        realm.close()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId) {
-            R.id.menu_void -> goToVoid()
-            R.id.menu_settlement -> goToSettlement()
-        }
-        return super.onOptionsItemSelected(item)
+        compositeSubcribtion.add(disposableRealm)
     }
 
     fun initAdapter(productRespons: List<ProductCatalog>) {
         rv_products_catalog.adapter = ProductCatalogAdapter(ArrayList(productRespons)) { productResponse ->
             Toast.makeText(this, productResponse.name, Toast.LENGTH_SHORT).show()
-            goToCart(productResponse)
+            onProductClicked(productResponse)
         }
     }
 
-    fun goToCart(product : ProductCatalog) {
+    private fun onProductClicked(product : ProductCatalog) {
         tryAddProductToCart(product)
-        val intent = CartActivity.newIntent(this,product)
-        startActivity(intent)
+        goToCart()
     }
 
-    fun goToVoid() {
-        val intent = VoidActivity.newIntent(this)
-        startActivity(intent)
-    }
-
-    fun goToSettlement() {
-
-    }
-
-    fun tryAddProductToCart(product : ProductCatalog) {
+    private fun tryAddProductToCart(product : ProductCatalog) {
         val thread = Thread(Runnable {
-            val realm = Realm.getDefaultInstance()
-            try {
-                // ... Use the Realm instance ...
+            val realmIns = Realm.getDefaultInstance()
+            realmIns.use { realm ->
                 addToCart(realm, product)
-            } finally {
-                realm.close()
             }
         })
 
@@ -182,6 +134,41 @@ class CatalogActivity : AppCompatActivity() {
             item.mItemImage = product.image
             item.mItemStock = product.stock
         }
+    }
+
+    private fun goToCart() {
+        val intent = CartActivity.newIntent(this)
+        startActivity(intent)
+    }
+
+    private fun goToVoid() {
+        val intent = VoidActivity.newIntent(this)
+        startActivity(intent)
+    }
+
+    private fun goToSettlement() {
+        val intent = SettlementActivity.newIntent(this)
+        startActivity(intent)
+    }
+
+    private fun goToHistory() {
+        val intent = TransactionListActivity.newIntent(this)
+        startActivity(intent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId) {
+            R.id.menu_void -> goToVoid()
+            R.id.menu_settlement -> goToSettlement()
+            R.id.menu_cart -> goToCart()
+            R.id.menu_history -> goToHistory()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

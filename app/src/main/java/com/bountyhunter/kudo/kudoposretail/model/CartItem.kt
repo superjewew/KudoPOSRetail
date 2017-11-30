@@ -12,4 +12,13 @@ open class CartItem : RealmObject() {
     var mItemPrice: Double = 0.0
     var mItemImage: String = "No Image"
     var mItemStock: Int = 10
+
+    fun fromProduct(product: Product) {
+        mItemId = product.id
+        mItemName = product.name
+        mItemQuantity = 1
+        mItemPrice = product.price
+        mItemImage = product.image
+        mItemStock = product.stock
+    }
 }

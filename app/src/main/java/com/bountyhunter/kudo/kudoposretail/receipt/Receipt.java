@@ -18,8 +18,9 @@ public class Receipt extends BaseReceipt {
     public static final int METHOD_CARD = 1;
     public static final int METHOD_CASH = 2;
 
-    public Receipt(HashMap<String, Integer> products, int method, Card card) {
-        super(products, method, card);
+    public Receipt(String transNo, HashMap<String, Integer> products, int method, Card card) {
+        super(transNo, products, method, card);
+        generateContents();
     }
 
     public List<ReceiptString> getContents() {
