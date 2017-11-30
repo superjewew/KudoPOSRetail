@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import android.view.View.VISIBLE
 import com.bountyhunter.kudo.kudoposretail.*
 import com.bountyhunter.kudo.kudoposretail.api.LoginResponse
 import com.bountyhunter.kudo.kudoposretail.api.Transaction
@@ -22,6 +23,11 @@ import kotlinx.android.synthetic.main.activity_process_transaction.*
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
+import android.view.animation.DecelerateInterpolator
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+
+
 
 class ProcessTransactionActivity : AppCompatActivity() {
 
@@ -47,7 +53,7 @@ class ProcessTransactionActivity : AppCompatActivity() {
             mMethod = METHOD_CASH
         }
 
-        if(intent.getStringExtra("CARD_NUMBER") != null) {
+        intent.getStringExtra("CARD_NUMBER")?.let {
             mMethod = METHOD_CARD
             mCard = Card(intent.getStringExtra("CARD_NUMBER"), intent.getStringExtra("CARD_ISSUER"))
         }
@@ -94,6 +100,11 @@ class ProcessTransactionActivity : AppCompatActivity() {
 
             override fun onNext(loginResponse: LoginResponse) {
                 status_tv.text = "Transaksi Berhasil"
+                transaction_iv.visibility = VISIBLE
+                val fadeIn = AlphaAnimation(0f, 1f)
+                fadeIn.interpolator = DecelerateInterpolator() //add this
+                fadeIn.duration = 1000
+                transaction_iv.animation = fadeIn
                 clearCart()
             }
         }
