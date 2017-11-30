@@ -12,6 +12,8 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import com.bountyhunter.kudo.kudoposretail.R
+import com.bountyhunter.kudo.kudoposretail.api.RestAPI
+import com.bountyhunter.kudo.kudoposretail.fragment.base_url_dialog
 import com.bountyhunter.kudo.kudoposretail.rxjava.LoginManager
 import kotlinx.android.synthetic.main.activity_login.*
 import rx.android.schedulers.AndroidSchedulers
@@ -36,12 +38,22 @@ class LoginActivity : AppCompatActivity() {
 
         email_sign_in_button.setOnClickListener { attemptLogin() }
 
+        btn_change_url.setOnClickListener {showUrlDialog()}
+
         password.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 attemptLogin()
             }
             false
         }
+
+        RestAPI.changeMock()
+    }
+
+    private fun showUrlDialog() {
+        val pop = base_url_dialog()
+        val fm = this@LoginActivity.fragmentManager
+        pop.show(fm, "name")
     }
 
     override fun onPause() {

@@ -9,29 +9,34 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 class RestAPI {
 //0522
-    val hackaidoApi: HackaidoApi
 
-    init {
-        val retrofit = Retrofit.Builder()
-                .baseUrl("http://private-9d06dc-hackaido1.apiary-mock.com/")
-//                .baseUrl("http://192.168.43.113:443/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-        hackaidoApi = retrofit.create(HackaidoApi::class.java)
-    }
+    companion object {
+        val mock = "http://private-9d06dc-hackaido1.apiary-mock.com/"
+        lateinit  var hackaidoApi: HackaidoApi
 
-    fun getInstance(): HackaidoApi {
-        if (hackaidoApi != null) {
-            return hackaidoApi
-        } else {
-            val retrofit = Retrofit.Builder()
-                    .baseUrl("http://private-9d06dc-hackaido1.apiary-mock.com/")
-//                    .baseUrl("http://192.168.43.113:443/api/")
+        fun changeBaseUrl(url : String) {
+            try {
+                var retrofit = Retrofit.Builder()
+                        .baseUrl(url)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build()
+                hackaidoApi = retrofit.create(HackaidoApi::class.java)
+            } catch (e : Exception) {
+                changeMock()
+            }
+
+        }
+
+        fun changeMock() {
+            var retrofit = Retrofit.Builder()
+                    .baseUrl(mock)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
-            return retrofit.create(HackaidoApi::class.java)
+            hackaidoApi = retrofit.create(HackaidoApi::class.java)
         }
+
     }
+
 
     fun login(email: String, password: String): Call<LoginResponse> {
         var loginRequest = LoginRequest(email, password)
