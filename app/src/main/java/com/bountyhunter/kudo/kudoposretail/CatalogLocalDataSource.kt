@@ -14,19 +14,12 @@ import rx.functions.Func1
  */
 class CatalogLocalDataSource(val context: Context): CatalogDataSource {
 
-    override fun saveToLocalDb(products: List<ProductCatalog>) {
+    override fun saveToLocalDb(catalogs: List<ProductCatalog>) {
         Realm.getDefaultInstance().use {
-            for(product in products) {
+            for(catalog in catalogs) {
                 it.executeTransaction {
-                    val item = it.createObject(Product::class.java)
-                    item.id = product.id
-                    item.name = product.name
-                    item.description = product.description
-                    item.price = product.price
-                    item.commission = product.commission
-                    item.image = product.image
-                    item.stock = product.stock
-                    item.barcode = product.barcode
+                    val item = realmFromCatalog(catalog)
+                    it.copyToRealmOrUpdate(item)
                 }
             }
         }
@@ -60,5 +53,17 @@ class CatalogLocalDataSource(val context: Context): CatalogDataSource {
         return catalog
     }
 
+    private fun realmFromCatalog(catalog: ProductCatalog): Product {
+        val item = Product()
+        item.id = catalog.id
+        item.name = catalog.name
+        item.description = catalog.description
+        item.price = catalog.price
+        item.commission = catalog.commission
+        item.image = catalog.image
+        item.stock = catalog.stock
+        item.barcode = catalog.barcode
+        return item
+    }
 
 }
