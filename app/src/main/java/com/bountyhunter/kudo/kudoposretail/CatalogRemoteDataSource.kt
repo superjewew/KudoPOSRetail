@@ -9,7 +9,7 @@ import rx.Observable
  * Created by norman on 11/28/17.
  */
 class CatalogRemoteDataSource: CatalogDataSource {
-    override fun saveToLocalDb(products: List<ProductCatalog>) {
+    override fun saveToLocalDb(catalogs: List<ProductCatalog>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

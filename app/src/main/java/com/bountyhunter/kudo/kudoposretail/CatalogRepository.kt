@@ -17,8 +17,8 @@ class CatalogRepository(localDataSource: CatalogDataSource, remoteDataSource: Ca
 
     override fun getProduct(id: Long): Observable<Product> = local.getProduct(id)
 
-    override fun saveToLocalDb(products: List<ProductCatalog>) {
-        local.saveToLocalDb(products)
+    override fun saveToLocalDb(catalogs: List<ProductCatalog>) {
+        local.saveToLocalDb(catalogs)
     }
 
     override fun getProducts(): Observable<List<ProductCatalog>> {

@@ -12,5 +12,5 @@ interface CatalogDataSource {
 
     fun getProduct(id: Long): Observable<Product>
 
-    fun saveToLocalDb(products: List<ProductCatalog>)
+    fun saveToLocalDb(catalogs: List<ProductCatalog>)
 }
