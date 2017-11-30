@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import com.bountyhunter.kudo.kudoposretail.R
 import com.bountyhunter.kudo.kudoposretail.rxjava.LoginManager
@@ -16,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import rx.subscriptions.CompositeSubscription
+
 
 /**
  * A login screen that offers login via email/password.
@@ -33,6 +35,13 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         email_sign_in_button.setOnClickListener { attemptLogin() }
+
+        password.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                attemptLogin()
+            }
+            false
+        }
     }
 
     override fun onPause() {
