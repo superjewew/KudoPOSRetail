@@ -13,6 +13,7 @@ import com.bountyhunter.kudo.kudoposretail.model.Product
 import io.realm.Realm
 import me.dm7.barcodescanner.zbar.Result
 import me.dm7.barcodescanner.zbar.ZBarScannerView
+import org.jetbrains.anko.toast
 import rx.schedulers.Schedulers
 import rx.subscriptions.CompositeSubscription
 
@@ -56,8 +57,12 @@ class ScannerActivity : AppCompatActivity(), ZBarScannerView.ResultHandler {
         Realm.getDefaultInstance().use {
             it.executeTransaction {
                 val result = it.where(Product::class.java).equalTo("barcode", rawResult?.contents).findFirst()
-                val item = it.createObject(CartItem::class.java)
-                item.fromProduct(result!!)
+                if(result == null) {
+                    toast("Barang belum terdaftar di server")
+                } else {
+                    val item = it.createObject(CartItem::class.java)
+                    item.fromProduct(result)
+                }
                 Log.d("SCANNER", result?.name + " " + result?.barcode)
                 finish()
             }

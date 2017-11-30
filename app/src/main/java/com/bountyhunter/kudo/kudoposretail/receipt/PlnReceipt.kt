@@ -69,7 +69,7 @@ class PlnReceipt(transNo: String): BaseReceipt(null, null, 0, null) {
     }
 
     private fun generateToken() {
-        mContents.add(ReceiptString("STROOM/TOKEN : 1234-1234-1234-1234-1234", 24, Printer.Align.LEFT, true, false))
+        mContents.add(ReceiptString("TOKEN : 1234-1234-1234-1234-1234", 24, Printer.Align.LEFT, true, false))
         mContents.add(ReceiptString("--------------------------------------------", 30, Printer.Align.CENTER, false, false))
     }
 

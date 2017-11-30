@@ -126,7 +126,7 @@ public abstract class BaseReceipt {
             case METHOD_CARD:
                 List<ReceiptString> footer = new ArrayList<>();
 
-                footer.add(new ReceiptString("Card No " + mCard.getCardNumber(), 24, Printer.Align.LEFT, false, false));
+                footer.add(new ReceiptString("Card No " + maskCardNumber(mCard.getCardNumber()), 24, Printer.Align.LEFT, false, false));
                 footer.add(new ReceiptString("Card Issuer " + mCard.getCardIssuer() , 24, Printer.Align.LEFT, false, false));
 
                 mContents.addAll(footer);
@@ -143,5 +143,11 @@ public abstract class BaseReceipt {
     private void generateFooter() {
         mContents.add(new ReceiptString("APPROVED", 24, Printer.Align.CENTER, true, false));
         mContents.add(new ReceiptString("Thank You", 24, Printer.Align.CENTER, true, false));
+    }
+
+    private String maskCardNumber(String cardNumber) {
+        String masked = "xxxxxxxxxxxx";
+        return masked + cardNumber.substring(masked.length());
+
     }
 }
