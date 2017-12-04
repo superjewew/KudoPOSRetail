@@ -9,6 +9,10 @@ import rx.Observable
  * Created by norman on 11/28/17.
  */
 class CatalogRemoteDataSource: CatalogDataSource {
+    override fun getProducts(query: String): List<ProductCatalog> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun saveToLocalDb(catalogs: List<ProductCatalog>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

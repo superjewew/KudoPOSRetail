@@ -16,6 +16,7 @@ import com.bountyhunter.kudo.kudoposretail.CatalogRepository
 import com.bountyhunter.kudo.kudoposretail.R
 import com.bountyhunter.kudo.kudoposretail.api.ProductCatalog
 import com.bountyhunter.kudo.kudoposretail.model.CartItem
+import com.bountyhunter.kudo.kudoposretail.model.Product
 import com.bountyhunter.kudo.kudoposretail.rxjava.CatalogManager
 import com.bountyhunter.kudo.kudoposretail.ui.ProductCatalogAdapter
 import io.realm.Realm
@@ -42,6 +43,8 @@ class CatalogActivity : AppCompatActivity() {
         CatalogRepository(CatalogLocalDataSource(this), CatalogRemoteDataSource())
     }
 
+    private var catalogs = ArrayList<ProductCatalog>()
+
     override fun onPause() {
         super.onPause()
         if(compositeSubcribtion.hasSubscriptions()) {
@@ -64,19 +67,11 @@ class CatalogActivity : AppCompatActivity() {
 
             override fun afterTextChanged(p0: Editable?) {
                 if(search_tv.text.isNotEmpty()) {
-                    val id : Int = search_tv.text.toString().toInt()
-                    val disposable = catalogManager.getProductById(id)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe (
-                                    {
-                                        data -> initAdapter(data)
-                                    },
-                                    {
-                                        e -> Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
-                                    }
-                            )
-                    compositeSubcribtion.add(disposable)
+                    val query = search_tv.text.toString()
+                    val disposable = catalogRepo.getProducts(query)
+                    initAdapter(disposable)
+                } else {
+                    initAdapter(catalogs)
                 }
             }
 
@@ -90,6 +85,7 @@ class CatalogActivity : AppCompatActivity() {
                 .subscribe(
                         {   // on next
                             data -> initAdapter(data)
+                            catalogs.addAll(data)
                             catalogRepo.saveToLocalDb(data)
                         },
                         {   // on error

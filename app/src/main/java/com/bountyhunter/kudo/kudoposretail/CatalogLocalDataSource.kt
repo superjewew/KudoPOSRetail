@@ -31,6 +31,10 @@ class CatalogLocalDataSource(val context: Context): CatalogDataSource {
         })
     }
 
+    override fun getProducts(query: String): List<ProductCatalog> {
+        return ArrayList()
+    }
+
     override fun getProducts(): Observable<List<ProductCatalog>> {
         return RealmObservable.results(context, Func1<Realm, RealmResults<Product>> { realm ->
             realm.where(Product::class.java).findAll()

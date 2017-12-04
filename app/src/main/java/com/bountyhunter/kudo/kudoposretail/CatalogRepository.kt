@@ -2,6 +2,7 @@ package com.bountyhunter.kudo.kudoposretail
 
 import com.bountyhunter.kudo.kudoposretail.api.ProductCatalog
 import com.bountyhunter.kudo.kudoposretail.model.Product
+import io.realm.Case
 import io.realm.Realm
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
@@ -14,6 +15,8 @@ class CatalogRepository(localDataSource: CatalogDataSource, remoteDataSource: Ca
 
     private val local = localDataSource
     private val remote = remoteDataSource
+
+    override fun getProducts(query: String): List<ProductCatalog> = getProductsFromRealm(query)
 
     override fun getProduct(id: Long): Observable<Product> = local.getProduct(id)
 
@@ -38,6 +41,15 @@ class CatalogRepository(localDataSource: CatalogDataSource, remoteDataSource: Ca
         return Realm.getDefaultInstance().use {
             val catalogs = ArrayList<ProductCatalog>()
             val result = it.where(Product::class.java).findAll()
+            result.mapTo(catalogs) { mapProductToCatalog(it) }
+            catalogs
+        }
+    }
+
+    private fun getProductsFromRealm(query: String): List<ProductCatalog> {
+        return Realm.getDefaultInstance().use {
+            val catalogs = ArrayList<ProductCatalog>()
+            val result = it.where(Product::class.java).beginsWith("name", query, Case.INSENSITIVE).findAll()
             result.mapTo(catalogs) { mapProductToCatalog(it) }
             catalogs
         }
